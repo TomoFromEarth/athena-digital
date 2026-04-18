@@ -82,7 +82,7 @@ function Header({
         </Link>
         <div className="flex items-center gap-x-8">
           <Button href="/contact" invert={invert}>
-            Contact us
+            Start a project
           </Button>
           <button
             ref={toggleRef}
@@ -143,12 +143,12 @@ function Navigation() {
   return (
     <nav className="mt-px font-display text-5xl font-medium tracking-tight text-white">
       <NavigationRow>
-        <NavigationItem href="/work">Our Work</NavigationItem>
-        <NavigationItem href="/about">About Us</NavigationItem>
+        <NavigationItem href="/work">Work</NavigationItem>
+        <NavigationItem href="/about">About</NavigationItem>
       </NavigationRow>
       <NavigationRow>
-        <NavigationItem href="/process">Our Process</NavigationItem>
-        <NavigationItem href="/blog">Blog</NavigationItem>
+        <NavigationItem href="/process">Process</NavigationItem>
+        <NavigationItem href="/blog">Journal</NavigationItem>
       </NavigationRow>
     </nav>
   )
@@ -239,7 +239,7 @@ function RootLayoutInner({ children }: { children: React.ReactNode }) {
                 <div className="grid grid-cols-1 gap-y-10 pt-10 pb-16 sm:grid-cols-2 sm:pt-16">
                   <div>
                     <h2 className="font-display text-base font-semibold text-white">
-                      Our offices
+                      Where we work
                     </h2>
                     <Offices
                       invert
@@ -248,7 +248,7 @@ function RootLayoutInner({ children }: { children: React.ReactNode }) {
                   </div>
                   <div className="sm:border-l sm:border-transparent sm:pl-16">
                     <h2 className="font-display text-base font-semibold text-white">
-                      Follow us
+                      Follow Athena Digital
                     </h2>
                     <SocialMedia className="mt-6" invert />
                   </div>
@@ -269,7 +269,7 @@ function RootLayoutInner({ children }: { children: React.ReactNode }) {
           className="relative isolate flex w-full flex-col pt-9"
         >
           <GridPattern
-            className="absolute inset-x-0 -top-14 -z-10 h-[1000px] w-full mask-[linear-gradient(to_bottom_left,white_40%,transparent_50%)] fill-neutral-50 stroke-neutral-950/5"
+            className="absolute inset-x-0 -top-14 -z-10 h-250 w-full mask-[linear-gradient(to_bottom_left,white_40%,transparent_50%)] fill-neutral-50 stroke-neutral-950/5"
             yOffset={-96}
             interactive
           />

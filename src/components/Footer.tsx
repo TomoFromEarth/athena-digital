@@ -7,32 +7,25 @@ import { socialMediaProfiles } from '@/components/SocialMedia'
 
 const navigation = [
   {
-    title: 'Work',
+    title: 'Explore',
     links: [
-      { title: 'FamilyFund', href: '/work/family-fund' },
-      { title: 'Unseal', href: '/work/unseal' },
-      { title: 'Phobia', href: '/work/phobia' },
-      {
-        title: (
-          <>
-            See all <span aria-hidden="true">&rarr;</span>
-          </>
-        ),
-        href: '/work',
-      },
-    ],
-  },
-  {
-    title: 'Company',
-    links: [
+      { title: 'Work', href: '/work' },
       { title: 'About', href: '/about' },
-      { title: 'Process', href: '/process' },
-      { title: 'Blog', href: '/blog' },
-      { title: 'Contact us', href: '/contact' },
+      { title: 'How We Work', href: '/process' },
+      { title: 'Journal', href: '/blog' },
     ],
   },
   {
-    title: 'Connect',
+    title: 'Services',
+    links: [
+      { title: 'Content Creation', href: '/process' },
+      { title: 'Content Posting', href: '/process' },
+      { title: 'Community Management', href: '/process' },
+      { title: 'Trend Research', href: '/process' },
+    ],
+  },
+  {
+    title: 'Follow Athena Digital',
     links: socialMediaProfiles,
   },
 ]
@@ -82,11 +75,11 @@ function NewsletterForm() {
   return (
     <form className="max-w-sm">
       <h2 className="font-display text-sm font-semibold tracking-wider text-neutral-950">
-        Sign up for our newsletter
+        Get Athena Digital updates
       </h2>
       <p className="mt-4 text-sm text-neutral-700">
-        Subscribe to get the latest design news, articles, resources and
-        inspiration.
+        Occasional notes on content creation, community building, and trend
+        research.
       </p>
       <div className="relative mt-6">
         <input
@@ -125,7 +118,7 @@ export function Footer() {
             <Logo className="h-8" fillOnHover />
           </Link>
           <p className="text-sm text-neutral-700">
-            © Studio Agency Inc. {new Date().getFullYear()}
+            © Athena Digital {new Date().getFullYear()}. All rights reserved.
           </p>
         </div>
       </FadeIn>
