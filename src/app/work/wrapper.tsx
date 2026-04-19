@@ -24,7 +24,7 @@ export default async function CaseStudyLayout({
     <RootLayout>
       <article className="mt-24 sm:mt-32 lg:mt-40">
         <header>
-          <PageIntro eyebrow="Case Study" title={caseStudy.title} centered>
+          <PageIntro eyebrow="Work spotlight" title={caseStudy.title} centered>
             <p>{caseStudy.description}</p>
           </PageIntro>
 
@@ -78,7 +78,7 @@ export default async function CaseStudyLayout({
       {moreCaseStudies.length > 0 && (
         <PageLinks
           className="mt-24 sm:mt-32 lg:mt-40"
-          title="More case studies"
+          title="More work"
           pages={moreCaseStudies}
         />
       )}

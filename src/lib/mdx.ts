@@ -44,7 +44,8 @@ export interface CaseStudy {
   title: string
   description: string
   summary: Array<string>
-  logo: ImageProps['src']
+  /** Omit when the collaboration has no brand mark (e.g. individual creators). */
+  logo?: ImageProps['src']
   image: ImagePropsWithOptionalAlt
   service: string
   testimonial: {
