@@ -1,6 +1,5 @@
 import { type Metadata } from 'next'
 
-import { Blockquote } from '@/components/Blockquote'
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
@@ -8,13 +7,13 @@ import { GridList, GridListItem } from '@/components/GridList'
 import { GridPattern } from '@/components/GridPattern'
 import { List, ListItem } from '@/components/List'
 import { PageIntro } from '@/components/PageIntro'
+import { RootLayout } from '@/components/RootLayout'
 import { SectionIntro } from '@/components/SectionIntro'
 import { StylizedImage } from '@/components/StylizedImage'
 import { TagList, TagListItem } from '@/components/TagList'
 import imageLaptop from '@/images/laptop.jpg'
 import imageMeeting from '@/images/meeting.jpg'
 import imageWhiteboard from '@/images/whiteboard.jpg'
-import { RootLayout } from '@/components/RootLayout'
 
 function Section({
   title,
@@ -59,24 +58,23 @@ function Discover() {
     <Section title="Discover" image={{ src: imageWhiteboard }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          We work closely with our clients to understand their{' '}
-          <strong className="font-semibold text-neutral-950">needs</strong> and
-          goals, embedding ourselves in their every day operations to understand
-          what makes their business tick.
+          Athena Digital starts by getting clear on your{' '}
+          <strong className="font-semibold text-neutral-950">goals</strong>,
+          your audience, and where you already show up online. We review what is
+          working, what feels stiff, and where there is room to sound more like
+          you.
         </p>
         <p>
-          Our team of private investigators shadow the company director’s for
-          several weeks while our account managers focus on going through their
-          trash. Our senior security experts then perform social engineering
-          hacks to gain access to their{' '}
-          <strong className="font-semibold text-neutral-950">business</strong>{' '}
-          accounts — handing that information over to our forensic accounting
-          team.
+          That usually means a grounded look at your channels, your voice, and
+          the rhythms of your week—so recommendations fit real capacity, not a
+          fantasy content factory.
         </p>
         <p>
-          Once the full audit is complete, we report back with a comprehensive{' '}
-          <strong className="font-semibold text-neutral-950">plan</strong> and,
-          more importantly, a budget.
+          By the end of this phase you have a shared picture of priorities and a
+          practical{' '}
+          <strong className="font-semibold text-neutral-950">plan</strong> for
+          what to make first, what to post where, and how we will measure
+          “better” in a way that matters to you.
         </p>
       </div>
 
@@ -84,49 +82,56 @@ function Discover() {
         Included in this phase
       </h3>
       <TagList className="mt-4">
-        <TagListItem>In-depth questionnaires</TagListItem>
-        <TagListItem>Feasibility studies</TagListItem>
-        <TagListItem>Blood samples</TagListItem>
-        <TagListItem>Employee surveys</TagListItem>
-        <TagListItem>Proofs-of-concept</TagListItem>
-        <TagListItem>Forensic audit</TagListItem>
+        <TagListItem>Channel and content audit</TagListItem>
+        <TagListItem>Audience and positioning check-in</TagListItem>
+        <TagListItem>Voice, pillars, and guardrails</TagListItem>
+        <TagListItem>Light trend and competitor context</TagListItem>
+        <TagListItem>Goals, constraints, and success signals</TagListItem>
+        <TagListItem>Roadmap for the next stretch of work</TagListItem>
       </TagList>
     </Section>
   )
 }
 
-function Build() {
+function Create() {
   return (
-    <Section title="Build" image={{ src: imageLaptop, shape: 1 }}>
+    <Section title="Create" image={{ src: imageLaptop, shape: 1 }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          Based off of the discovery phase, we develop a comprehensive roadmap
-          for each product and start working towards delivery. The roadmap is an
-          intricately tangled mess of technical nonsense designed to drag the
-          project out as long as possible.
+          Here Athena Digital turns the plan into{' '}
+          <strong className="font-semibold text-neutral-950">
+            assets and rhythms
+          </strong>
+          : drafts, hooks, captions, visual direction, and a posting calendar
+          that respects your brand and your bandwidth.
         </p>
         <p>
-          Each client is assigned a key account manager to keep lines of
-          communication open and obscure the actual progress of the project.
-          They act as a buffer between the client’s incessant nagging and the
-          development team who are hard at work scouring open source projects
-          for code to re-purpose.
+          You stay in the loop with clear checkpoints—what is queued, what needs
+          your eyes, and what Athena Digital can move forward. No black-box
+          mystery weeks where nothing ships.
         </p>
         <p>
-          Our account managers are trained to only reply to client emails after
-          9pm, several days after the initial email. This reinforces the general
-          aura that we are very busy and dissuades clients from asking for
-          changes.
+          The mix might include batching content, adapting one idea across
+          platforms, or building a small library you can pull from—always in
+          service of sounding consistent, human, and culturally aware.
         </p>
       </div>
 
-      <Blockquote
-        author={{ name: 'Debra Fiscal', role: 'CEO of Unseal' }}
-        className="mt-12"
-      >
-        Studio were so regular with their progress updates we almost began to
-        think they were automated!
-      </Blockquote>
+      <h3 className="mt-12 font-display text-base font-semibold text-neutral-950">
+        Included in this phase
+      </h3>
+      <TagList className="mt-4">
+        <TagListItem>Editorial calendar and content outlines</TagListItem>
+        <TagListItem>
+          Drafts for posts, stories, and short-form pieces
+        </TagListItem>
+        <TagListItem>Platform-specific tweaks and formatting</TagListItem>
+        <TagListItem>Asset notes or simple creative direction</TagListItem>
+        <TagListItem>Revision rounds scoped to the engagement</TagListItem>
+        <TagListItem>
+          Handoff notes so you know how to use what we made
+        </TagListItem>
+      </TagList>
     </Section>
   )
 }
@@ -136,31 +141,21 @@ function Deliver() {
     <Section title="Deliver" image={{ src: imageMeeting, shape: 2 }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          About halfway through the Build phase, we push each project out by 6
-          weeks due to a change in{' '}
-          <strong className="font-semibold text-neutral-950">
-            requirements
-          </strong>
-          . This allows us to increase the budget a final time before launch.
+          Delivery is where content meets the feed:{' '}
+          <strong className="font-semibold text-neutral-950">scheduling</strong>
+          , publishing, and the small fixes that keep posts from feeling rushed
+          or off-brand at go-live.
         </p>
         <p>
-          Despite largely using pre-built components, most of the{' '}
-          <strong className="font-semibold text-neutral-950">progress</strong>{' '}
-          on each project takes place in the final 24 hours. The development
-          time allocated to each client is actually spent making augmented
-          reality demos that go viral on social media.
+          When it is part of your scope, Athena Digital also helps with{' '}
+          <strong className="font-semibold text-neutral-950">community</strong>{' '}
+          touchpoints—thoughtful replies, light moderation, and spotting moments
+          worth amplifying or adjusting.
         </p>
         <p>
-          We ensure that the main pages of the site are{' '}
-          <strong className="font-semibold text-neutral-950">
-            fully functional
-          </strong>{' '}
-          at launch — the auxiliary pages will, of course, be lorem ipusm shells
-          which get updated as part of our exorbitant{' '}
-          <strong className="font-semibold text-neutral-950">
-            maintenance
-          </strong>{' '}
-          retainer.
+          We keep an eye on what is resonating, what is tiring, and what the
+          conversation around your space is doing—so the next cycle of work
+          stays grounded in reality, not guesswork.
         </p>
       </div>
 
@@ -168,17 +163,17 @@ function Deliver() {
         Included in this phase
       </h3>
       <List className="mt-8">
-        <ListItem title="Testing">
-          Our projects always have 100% test coverage, which would be impressive
-          if our tests weren’t as porous as a sieve.
+        <ListItem title="Publishing & quality checks">
+          Scheduling, final read-throughs, and platform-native polish so what
+          goes live matches what you approved.
         </ListItem>
-        <ListItem title="Infrastructure">
-          To ensure reliability we only use the best Digital Ocean droplets that
-          $4 a month can buy.
+        <ListItem title="Community care">
+          Human responses and light moderation where agreed—so your people feel
+          heard without you living in the inbox.
         </ListItem>
-        <ListItem title="Support">
-          Because we hold the API keys for every critical service your business
-          uses, you can expect a lifetime of support, and invoices, from us.
+        <ListItem title="Iteration & check-ins">
+          Short retros on what landed, what to tweak, and what is next—aligned
+          to the cadence we set together.
         </ListItem>
       </List>
     </Section>
@@ -188,7 +183,7 @@ function Deliver() {
 function Values() {
   return (
     <div className="relative mt-24 pt-24 sm:mt-32 sm:pt-32 lg:mt-40 lg:pt-40">
-      <div className="absolute inset-x-0 top-0 -z-10 h-[884px] overflow-hidden rounded-t-4xl bg-linear-to-b from-neutral-50">
+      <div className="absolute inset-x-0 top-0 -z-10 h-221 overflow-hidden rounded-t-4xl bg-linear-to-b from-neutral-50">
         <GridPattern
           className="absolute inset-0 h-full w-full mask-[linear-gradient(to_bottom_left,white_40%,transparent_50%)] fill-neutral-100 stroke-neutral-950/5"
           yOffset={-270}
@@ -196,43 +191,42 @@ function Values() {
       </div>
 
       <SectionIntro
-        eyebrow="Our values"
-        title="Balancing reliability and innovation"
+        eyebrow="How Athena Digital works"
+        title="Warm, precise, and honest about what it takes"
       >
         <p>
-          We strive to stay at the forefront of emerging trends and
-          technologies, while completely ignoring them and forking that old
-          Rails project we feel comfortable using. We stand by our core values
-          to justify that decision.
+          A boutique studio only works if people trust the collaboration. These
+          are the ideas Athena Digital tries to live up to on every engagement.
         </p>
       </SectionIntro>
 
       <Container className="mt-24">
         <GridList>
           <GridListItem title="Meticulous">
-            The first part of any partnership is getting our designer to put
-            your logo in our template. The second step is getting them to do the
-            colors.
+            Voice and detail matter. We sweat the small stuff in captions,
+            timing, and tone so your presence feels intentional, not accidental.
           </GridListItem>
           <GridListItem title="Efficient">
-            We pride ourselves on never missing a deadline which is easy because
-            most of the work was done years ago.
+            Your time is limited. We aim for calendars and workflows that
+            respect how you actually work—not theoretical infinite capacity.
           </GridListItem>
           <GridListItem title="Adaptable">
-            Every business has unique needs and our greatest challenge is
-            shoe-horning those needs into something we already built.
+            Platforms and trends move. Athena Digital adjusts formats and
+            priorities with you instead of forcing a rigid playbook past its
+            sell-by date.
           </GridListItem>
           <GridListItem title="Honest">
-            We are transparent about all of our processes, banking on the simple
-            fact our clients never actually read anything.
+            We are upfront about scope, trade-offs, and what is realistic for a
+            small remote studio. No inflated promises about scale Athena Digital
+            cannot back up.
           </GridListItem>
           <GridListItem title="Loyal">
-            We foster long-term relationships with our clients that go beyond
-            just delivering a product, allowing us to invoice them for decades.
+            The best work comes from relationships where feedback is easy and
+            repeat collaboration feels natural—not transactional one-offs.
           </GridListItem>
-          <GridListItem title="Innovative">
-            The technological landscape is always evolving and so are we. We are
-            constantly on the lookout for new open source projects to clone.
+          <GridListItem title="Culturally fluent">
+            Athena Digital pays attention to how people really talk and scroll,
+            so content feels current without chasing every fleeting gimmick.
           </GridListItem>
         </GridList>
       </Container>
@@ -243,23 +237,27 @@ function Values() {
 export const metadata: Metadata = {
   title: 'Our Process',
   description:
-    'We believe in efficiency and maximizing our resources to provide the best value to our clients.',
+    'How Athena Digital discovers your goals, creates content and calendars, and delivers publishing and community support for creators and brands.',
 }
 
 export default function Process() {
   return (
     <RootLayout>
-      <PageIntro eyebrow="Our process" title="How we work">
+      <PageIntro
+        eyebrow="Our process"
+        title="How Athena Digital works with you"
+      >
         <p>
-          We believe in efficiency and maximizing our resources to provide the
-          best value to our clients. The primary way we do that is by re-using
-          the same five projects we’ve been developing for the past decade.
+          Most partnerships move through three chapters: understanding your
+          world, making the work, and shipping it with care. The details change
+          for every client, but the rhythm stays easy to follow—so you always
+          know where things stand.
         </p>
       </PageIntro>
 
       <div className="mt-24 space-y-24 [counter-reset:section] sm:mt-32 sm:space-y-32 lg:mt-40 lg:space-y-40">
         <Discover />
-        <Build />
+        <Create />
         <Deliver />
       </div>
 
