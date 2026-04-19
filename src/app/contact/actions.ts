@@ -2,17 +2,25 @@
 
 import {
   contactInquiryFormSchema,
-  firstZodIssueMessage,
+  type ContactInquiryFormInput,
 } from '@/lib/contact/contact-inquiry-schema'
 import type { ContactInquiryPayload } from '@/lib/contact/inquiry-types'
 import { sendContactInquiryEmail } from '@/lib/email/send-contact-inquiry'
 
 export type { ContactInquiryPayload }
 
+export type ContactFormFieldKey = keyof ContactInquiryFormInput
+
 export type ContactActionState =
   | { status: 'idle' }
   | { status: 'success' }
-  | { status: 'error'; error: string }
+  | {
+      status: 'error'
+      /** Non-field failures (e.g. email delivery). */
+      error?: string
+      /** First validation message per field from the server. */
+      fieldErrors?: Partial<Record<ContactFormFieldKey, string>>
+    }
 
 export async function submitContactInquiry(
   _prevState: ContactActionState,
@@ -38,7 +46,23 @@ export async function submitContactInquiry(
   })
 
   if (!parsed.success) {
-    return { status: 'error', error: firstZodIssueMessage(parsed.error) }
+    const flat = parsed.error.flatten().fieldErrors
+    const fieldErrors: Partial<Record<ContactFormFieldKey, string>> = {}
+    const fieldKeys: ContactFormFieldKey[] = [
+      'name',
+      'email',
+      'company',
+      'phone',
+      'message',
+      'budget',
+    ]
+    for (const key of fieldKeys) {
+      const first = flat[key]?.[0]
+      if (first) {
+        fieldErrors[key] = first
+      }
+    }
+    return { status: 'error', fieldErrors }
   }
 
   const { name, email, company, phone, message, budget } = parsed.data
