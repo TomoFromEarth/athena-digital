@@ -1,8 +1,8 @@
 import { useId } from 'react'
-import Image, { type ImageProps } from 'next/image'
+import Image, { type ImageProps, type StaticImageData } from 'next/image'
 import clsx from 'clsx'
 
-const shapes = [
+export const stylizedShapes = [
   {
     width: 655,
     height: 680,
@@ -28,13 +28,13 @@ export function StylizedImage({
   ...props
 }: ImagePropsWithOptionalAlt & { shape?: 0 | 1 | 2 }) {
   let id = useId()
-  let { width, height, path } = shapes[shape]
+  let { width, height, path } = stylizedShapes[shape]
 
   return (
     <div
       className={clsx(
         className,
-        'relative flex aspect-719/680 w-full grayscale',
+        'relative flex aspect-719/680 w-full',
       )}
     >
       <svg viewBox={`0 0 ${width} ${height}`} fill="none" className="h-full">
@@ -47,6 +47,92 @@ export function StylizedImage({
                 style={{ aspectRatio: `${width} / ${height}` }}
                 {...props}
               />
+            </foreignObject>
+          </g>
+          <use
+            href={`#${id}-shape`}
+            strokeWidth="2"
+            className="stroke-neutral-950/10"
+          />
+        </g>
+        <defs>
+          <clipPath id={`${id}-clip`}>
+            <path
+              id={`${id}-shape`}
+              d={path}
+              fillRule="evenodd"
+              clipRule="evenodd"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+  )
+}
+
+type CollageSources = readonly [
+  StaticImageData | string,
+  StaticImageData | string,
+  StaticImageData | string,
+  StaticImageData | string,
+]
+
+/** Same SVG mask as {@link StylizedImage}, with four images in a flush 2×2 grid (no gaps or radii). */
+export function StylizedCollage({
+  shape = 0,
+  className,
+  images,
+  sizes,
+}: {
+  shape?: 0 | 1 | 2
+  className?: string
+  images: CollageSources
+  sizes: string
+}) {
+  let id = useId()
+  let { width, height, path } = stylizedShapes[shape]
+
+  return (
+    <div className={clsx(className, 'relative flex aspect-719/680 w-full')}>
+      <svg viewBox={`0 0 ${width} ${height}`} fill="none" className="h-full">
+        <g clipPath={`url(#${id}-clip)`} className="group">
+          <g className="origin-center scale-100 transition duration-500 motion-safe:group-hover:scale-105">
+            <foreignObject width={width} height={height}>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gridTemplateRows: '1fr 1fr',
+                  width,
+                  height,
+                  margin: 0,
+                  padding: 0,
+                  gap: 0,
+                  overflow: 'hidden',
+                }}
+              >
+                {images.map((src, i) => (
+                  <div
+                    key={i}
+                    className="bg-neutral-100"
+                    style={{
+                      position: 'relative',
+                      minWidth: 0,
+                      minHeight: 0,
+                      margin: 0,
+                      padding: 0,
+                    }}
+                  >
+                    <Image
+                      src={src}
+                      alt=""
+                      fill
+                      sizes={sizes}
+                      className="origin-center scale-[0.92] object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
             </foreignObject>
           </g>
           <use

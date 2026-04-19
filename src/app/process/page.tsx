@@ -11,9 +11,9 @@ import { RootLayout } from '@/components/RootLayout'
 import { SectionIntro } from '@/components/SectionIntro'
 import { StylizedImage } from '@/components/StylizedImage'
 import { TagList, TagListItem } from '@/components/TagList'
-import imageLaptop from '@/images/laptop.jpg'
-import imageMeeting from '@/images/meeting.jpg'
-import imageWhiteboard from '@/images/whiteboard.jpg'
+import imageDiscover from '@/images/athena/ivana-01.PNG'
+import imageCreate from '@/images/athena/tomofromearth-02.jpg'
+import imageDeliver from '@/images/athena/femme-totale-01.jpg'
 
 function Section({
   title,
@@ -55,7 +55,7 @@ function Section({
 
 function Discover() {
   return (
-    <Section title="Discover" image={{ src: imageWhiteboard }}>
+    <Section title="Discover" image={{ src: imageDiscover }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
           Athena Digital starts by getting clear on your{' '}
@@ -95,7 +95,7 @@ function Discover() {
 
 function Create() {
   return (
-    <Section title="Create" image={{ src: imageLaptop, shape: 1 }}>
+    <Section title="Create" image={{ src: imageCreate, shape: 1 }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
           Here Athena Digital turns the plan into{' '}
@@ -138,7 +138,7 @@ function Create() {
 
 function Deliver() {
   return (
-    <Section title="Deliver" image={{ src: imageMeeting, shape: 2 }}>
+    <Section title="Deliver" image={{ src: imageDeliver, shape: 2 }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
           Delivery is where content meets the feed:{' '}

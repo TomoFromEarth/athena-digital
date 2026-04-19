@@ -7,10 +7,13 @@ import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 import { List, ListItem } from '@/components/List'
 import { RootLayout } from '@/components/RootLayout'
 import { SectionIntro } from '@/components/SectionIntro'
-import { StylizedImage } from '@/components/StylizedImage'
+import { StylizedCollage } from '@/components/StylizedImage'
 import { Testimonial } from '@/components/Testimonial'
 import { homepageTestimonial } from '@/content/homepage-testimonial'
-import imageLaptop from '@/images/laptop.jpg'
+import imageFemmeDevoilee from '@/images/athena/femme-devoilee-01.jpg'
+import imageFemmeTotale from '@/images/athena/femme-totale-01.jpg'
+import imageIvana from '@/images/athena/ivana-02.PNG'
+import imageTomofromearth from '@/images/athena/tomofromearth-02.jpg'
 
 function AudienceStrip() {
   return (
@@ -35,8 +38,8 @@ function AudienceStrip() {
             >
               Follow along on Instagram
             </Link>{' '}
-            for a living snapshot of what we are building. More case-style writeups
-            will land on the site as they are ready.
+            for a living snapshot of what we are building. More case-style
+            writeups will land on the site as they are ready.
           </p>
         </FadeIn>
       </Container>
@@ -122,9 +125,14 @@ function Services() {
         <div className="lg:flex lg:items-center lg:justify-end">
           <div className="flex justify-center lg:w-1/2 lg:justify-end lg:pr-12">
             <FadeIn className="w-135 flex-none lg:w-180">
-              <StylizedImage
-                src={imageLaptop}
-                sizes="(min-width: 1024px) 41rem, 31rem"
+              <StylizedCollage
+                images={[
+                  imageTomofromearth,
+                  imageIvana,
+                  imageFemmeDevoilee,
+                  imageFemmeTotale,
+                ]}
+                sizes="(min-width: 1024px) 21rem, 16rem"
                 className="justify-center lg:justify-end"
               />
             </FadeIn>
@@ -173,7 +181,8 @@ export default function Home() {
           <p className="mt-6 text-xl text-neutral-600">
             Athena Digital is a remote studio that plans, creates, posts, and
             tends the social layer for artists, personal brands, and small teams
-            who want their channels to feel alive—not like a forgotten task list.
+            who want their channels to feel alive—not like a forgotten task
+            list.
           </p>
         </FadeIn>
       </Container>
@@ -200,9 +209,9 @@ export default function Home() {
           client={{ name: 'Athena Digital' }}
         >
           <p>
-            Client perspectives will appear in this space as we publish them.
-            If Athena Digital has supported your work and you would like to
-            share a short reflection,{' '}
+            Client perspectives will appear in this space as we publish them. If
+            Athena Digital has supported your work and you would like to share a
+            short reflection,{' '}
             <Link
               href="/contact"
               className="font-semibold text-neutral-950 underline decoration-neutral-950/30 underline-offset-4 transition hover:decoration-neutral-950"
