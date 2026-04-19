@@ -1,4 +1,7 @@
+import Image from 'next/image'
+
 import authorImage from '@/images/brand/athena-digital-mark.png'
+import imageArticle from '@/images/athena/femme-totale-03.PNG'
 
 export const article = {
   date: '2025-04-10',
@@ -37,3 +40,10 @@ Whether it is a shared doc, a Notion board, or a lightweight studio handoff, eve
 ## When life blows up the plan
 
 Schedules slip. The honest move is to communicate early, trim scope with intention, and resist the urge to post filler just to stay “active.” A quiet week with one strong post often ages better than seven forgettable ones.
+
+<Image
+  src={imageArticle}
+  alt=""
+  sizes="(min-width: 768px) 42rem, 100vw"
+  className="mt-16 w-full rounded-4xl object-cover"
+/>

@@ -14,7 +14,8 @@ export default function NotFound() {
           Page not found
         </h1>
         <p className="mt-2 text-sm text-neutral-600">
-          Sorry, we couldn’t find the page you’re looking for.
+          That page is not on Athena Digital. Use the link below to go back to
+          the site.
         </p>
         <Link
           href="/"

@@ -13,7 +13,7 @@ import { StylizedImage } from '@/components/StylizedImage'
 import { TagList, TagListItem } from '@/components/TagList'
 import imageDiscover from '@/images/athena/ivana-01.PNG'
 import imageCreate from '@/images/athena/tomofromearth-02.jpg'
-import imageDeliver from '@/images/athena/femme-totale-01.jpg'
+import imageDeliver from '@/images/athena/ivana-02.PNG'
 
 function Section({
   title,
@@ -55,7 +55,14 @@ function Section({
 
 function Discover() {
   return (
-    <Section title="Discover" image={{ src: imageDiscover }}>
+    <Section
+      title="Discover"
+      image={{
+        src: imageDiscover,
+        // Crop: add Tailwind object-* (e.g. object-top, object-[50%_30%]) on StylizedImage’s inner img.
+        className: 'object-top',
+      }}
+    >
       <div className="space-y-6 text-base text-neutral-600">
         <p>
           Athena Digital starts by getting clear on your{' '}

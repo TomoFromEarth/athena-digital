@@ -29,23 +29,23 @@ export function StylizedImage({
 }: ImagePropsWithOptionalAlt & { shape?: 0 | 1 | 2 }) {
   let id = useId()
   let { width, height, path } = stylizedShapes[shape]
+  let { className: imageClassName, ...imageProps } =
+    props as ImagePropsWithOptionalAlt & { className?: string }
 
   return (
-    <div
-      className={clsx(
-        className,
-        'relative flex aspect-719/680 w-full',
-      )}
-    >
+    <div className={clsx(className, 'relative flex aspect-719/680 w-full')}>
       <svg viewBox={`0 0 ${width} ${height}`} fill="none" className="h-full">
         <g clipPath={`url(#${id}-clip)`} className="group">
           <g className="origin-center scale-100 transition duration-500 motion-safe:group-hover:scale-105">
             <foreignObject width={width} height={height}>
               <Image
                 alt=""
-                className="w-full bg-neutral-100 object-cover"
+                className={clsx(
+                  'w-full bg-neutral-100 object-cover object-top',
+                  imageClassName,
+                )}
                 style={{ aspectRatio: `${width} / ${height}` }}
-                {...props}
+                {...imageProps}
               />
             </foreignObject>
           </g>
@@ -77,17 +77,24 @@ type CollageSources = readonly [
   StaticImageData | string,
 ]
 
+const collageDefaultImageClass = 'block size-full object-cover'
+
+type CollageCellImageClasses = readonly [string, string, string, string]
+
 /** Same SVG mask as {@link StylizedImage}, with four images in a flush 2×2 grid (no gaps or radii). */
 export function StylizedCollage({
   shape = 0,
   className,
   images,
   sizes,
+  cellImageClassName,
 }: {
   shape?: 0 | 1 | 2
   className?: string
   images: CollageSources
   sizes: string
+  /** Per quadrant (TL, TR, BL, BR). Overrides default crop/scale when set. */
+  cellImageClassName?: CollageCellImageClasses
 }) {
   let id = useId()
   let { width, height, path } = stylizedShapes[shape]
@@ -99,36 +106,27 @@ export function StylizedCollage({
           <g className="origin-center scale-100 transition duration-500 motion-safe:group-hover:scale-105">
             <foreignObject width={width} height={height}>
               <div
+                className="grid size-full grid-cols-2 grid-rows-2 gap-0 overflow-hidden leading-none"
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gridTemplateRows: '1fr 1fr',
                   width,
                   height,
                   margin: 0,
                   padding: 0,
-                  gap: 0,
-                  overflow: 'hidden',
                 }}
               >
                 {images.map((src, i) => (
                   <div
                     key={i}
-                    className="bg-neutral-100"
-                    style={{
-                      position: 'relative',
-                      minWidth: 0,
-                      minHeight: 0,
-                      margin: 0,
-                      padding: 0,
-                    }}
+                    className="relative min-h-0 min-w-0 overflow-hidden bg-neutral-100"
                   >
                     <Image
                       src={src}
                       alt=""
                       fill
                       sizes={sizes}
-                      className="origin-center scale-[0.92] object-cover"
+                      className={
+                        cellImageClassName?.[i] ?? collageDefaultImageClass
+                      }
                     />
                   </div>
                 ))}

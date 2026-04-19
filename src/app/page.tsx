@@ -11,9 +11,17 @@ import { StylizedCollage } from '@/components/StylizedImage'
 import { Testimonial } from '@/components/Testimonial'
 import { homepageTestimonial } from '@/content/homepage-testimonial'
 import imageFemmeDevoilee from '@/images/athena/femme-devoilee-01.jpg'
-import imageFemmeTotale from '@/images/athena/femme-totale-01.jpg'
+import imageFemmeTotale03 from '@/images/athena/femme-totale-03.PNG'
 import imageIvana from '@/images/athena/ivana-02.PNG'
 import imageTomofromearth from '@/images/athena/tomofromearth-02.jpg'
+
+/** Edge-to-edge in each cell (no scale transforms — those left neutral gutters between tiles). */
+const servicesCollageImageClassName = [
+  'block size-full object-cover object-top',
+  'block size-full object-cover object-top',
+  'block size-full object-cover object-bottom',
+  'block size-full object-cover',
+] as const
 
 function AudienceStrip() {
   return (
@@ -130,8 +138,9 @@ function Services() {
                   imageTomofromearth,
                   imageIvana,
                   imageFemmeDevoilee,
-                  imageFemmeTotale,
+                  imageFemmeTotale03,
                 ]}
+                cellImageClassName={servicesCollageImageClassName}
                 sizes="(min-width: 1024px) 21rem, 16rem"
                 className="justify-center lg:justify-end"
               />

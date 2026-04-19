@@ -55,14 +55,18 @@ export default async function CaseStudyLayout({
             </div>
 
             <div className="border-y border-neutral-200 bg-neutral-100">
-              <div className="mx-auto -my-px max-w-304 bg-neutral-200">
-                <GrayscaleTransitionImage
-                  {...caseStudy.image}
-                  quality={90}
-                  className="w-full"
-                  sizes="(min-width: 1216px) 76rem, 100vw"
-                  priority
-                />
+              <div className="mx-auto -my-px max-w-2xl px-4 sm:px-6 lg:px-8">
+                <div className="relative h-[min(26rem,52vh)] w-full overflow-hidden bg-neutral-200 sm:h-[min(30rem,58vh)]">
+                  <GrayscaleTransitionImage
+                    src={caseStudy.image.src}
+                    alt={caseStudy.image.alt ?? ''}
+                    fill
+                    quality={90}
+                    className="object-cover object-[center_22%]"
+                    sizes="(min-width: 1024px) 42rem, (min-width: 640px) 90vw, 100vw"
+                    priority
+                  />
+                </div>
               </div>
             </div>
           </FadeIn>

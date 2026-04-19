@@ -1,5 +1,6 @@
 import { useId } from 'react'
 import { type Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { Border } from '@/components/Border'
@@ -10,6 +11,7 @@ import { Offices } from '@/components/Offices'
 import { PageIntro } from '@/components/PageIntro'
 import { SocialMedia } from '@/components/SocialMedia'
 import { RootLayout } from '@/components/RootLayout'
+import imageContact from '@/images/athena/femme-totale-02.PNG'
 
 function TextInput({
   label,
@@ -158,6 +160,19 @@ export default function Contact() {
           the best next step.
         </p>
       </PageIntro>
+
+      <Container className="mt-16 sm:mt-20">
+        <FadeIn>
+          <div className="overflow-hidden rounded-4xl bg-neutral-100">
+            <Image
+              src={imageContact}
+              alt=""
+              sizes="(min-width: 1024px) 100vw, 100vw"
+              className="aspect-2/1 w-full object-cover md:aspect-21/9"
+            />
+          </div>
+        </FadeIn>
+      </Container>
 
       <Container className="mt-24 sm:mt-32 lg:mt-40">
         <div className="grid grid-cols-1 gap-x-8 gap-y-24 lg:grid-cols-2">

@@ -4,7 +4,7 @@ import Image, { type ImageProps } from 'next/image'
 export function GrayscaleTransitionImage(
   props: Pick<
     ImageProps,
-    'src' | 'quality' | 'className' | 'sizes' | 'priority'
+    'src' | 'quality' | 'className' | 'sizes' | 'priority' | 'fill'
   > & { alt?: string },
 ) {
   return <Image alt="" {...props} />

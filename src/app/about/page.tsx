@@ -1,4 +1,5 @@
 import { type Metadata } from 'next'
+import Image from 'next/image'
 
 import { Border } from '@/components/Border'
 import { ContactSection } from '@/components/ContactSection'
@@ -11,6 +12,7 @@ import { RootLayout } from '@/components/RootLayout'
 import { SectionIntro } from '@/components/SectionIntro'
 import { StatList, StatListItem } from '@/components/StatList'
 import { loadArticles } from '@/lib/mdx'
+import imageAbout from '@/images/athena/ivana-03.PNG'
 
 function Culture() {
   return (
@@ -103,11 +105,14 @@ export default async function About() {
 
   return (
     <RootLayout>
-      <PageIntro eyebrow="About us" title="A boutique studio for channels that feel human">
+      <PageIntro
+        eyebrow="About us"
+        title="A boutique studio for channels that feel human"
+      >
         <p>
           Athena Digital helps creators and brands show up online with clarity,
-          consistency, and personality—without the overhead of a giant agency
-          or the chaos of doing everything alone.
+          consistency, and personality—without the overhead of a giant agency or
+          the chaos of doing everything alone.
         </p>
         <div className="mt-10 max-w-2xl space-y-6 text-base">
           <p>
@@ -129,9 +134,9 @@ export default async function About() {
           </p>
           <p>
             Athena Digital is remote-first and deliberately lean. That keeps
-            partnerships direct, timelines honest, and the work grounded in
-            what you can sustain—not inflated promises about scale the studio
-            cannot deliver.
+            partnerships direct, timelines honest, and the work grounded in what
+            you can sustain—not inflated promises about scale the studio cannot
+            deliver.
           </p>
         </div>
       </PageIntro>
@@ -141,6 +146,19 @@ export default async function About() {
           <StatListItem value="Lean" label="Studio by design" />
           <StatListItem value="Hands-on" label="Who touches your work" />
         </StatList>
+      </Container>
+
+      <Container className="mt-16">
+        <FadeIn>
+          <div className="overflow-hidden rounded-4xl bg-neutral-100">
+            <Image
+              src={imageAbout}
+              alt=""
+              sizes="(min-width: 1024px) 100vw, 100vw"
+              className="aspect-21/9 w-full object-cover object-top"
+            />
+          </div>
+        </FadeIn>
       </Container>
 
       <Culture />
