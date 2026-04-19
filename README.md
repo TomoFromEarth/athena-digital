@@ -24,6 +24,11 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - `npm run build` — production build
 - `npm run start` — serve production build
 - `npm run lint` — ESLint
+- `npm run email:dev` — preview [React Email](https://react.email) templates under `./emails`
+
+## Contact form email (Resend)
+
+Production sends use [Resend](https://resend.com). Copy `.env.example` to `.env.local`, add `RESEND_API_KEY`, `EMAIL_FROM`, and optionally `CONTACT_INQUIRY_TO_EMAIL`. Without these, the contact form shows a configuration error instead of sending.
 
 ## Learn more
 

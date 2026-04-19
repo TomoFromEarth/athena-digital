@@ -1,6 +1,10 @@
 'use server'
 
-const BUDGET_VALUES = ['25', '50', '100', '150'] as const
+import {
+  BUDGET_VALUES,
+  type ContactInquiryPayload,
+} from '@/lib/contact/inquiry-types'
+import { sendContactInquiryEmail } from '@/lib/email/send-contact-inquiry'
 
 const MAX_NAME_LEN = 200
 const MAX_COMPANY_LEN = 200
@@ -12,14 +16,7 @@ function isValidEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
 }
 
-export type ContactInquiryPayload = {
-  name: string
-  email: string
-  company: string
-  phone: string
-  message: string
-  budget: (typeof BUDGET_VALUES)[number]
-}
+export type { ContactInquiryPayload }
 
 export type ContactActionState =
   | { status: 'idle' }
@@ -73,7 +70,8 @@ export async function submitContactInquiry(
   }
 
   const budget =
-    typeof budgetRaw === 'string' && BUDGET_VALUES.includes(budgetRaw as (typeof BUDGET_VALUES)[number])
+    typeof budgetRaw === 'string' &&
+    BUDGET_VALUES.includes(budgetRaw as ContactInquiryPayload['budget'])
       ? (budgetRaw as ContactInquiryPayload['budget'])
       : null
 
@@ -90,12 +88,22 @@ export async function submitContactInquiry(
     budget,
   }
 
-  await processContactInquiry(payload)
+  const sendResult = await sendContactInquiryEmail(payload)
+
+  if (!sendResult.ok) {
+    if (sendResult.reason === 'not_configured') {
+      return {
+        status: 'error',
+        error:
+          'Email delivery is not configured yet. Please reach out directly at julia@athenadigital.me.',
+      }
+    }
+    return {
+      status: 'error',
+      error:
+        'We could not send your message. Please try again in a moment or email us directly.',
+    }
+  }
 
   return { status: 'success' }
-}
-
-/** Placeholder for delivery (#15 Resend + React Email). */
-async function processContactInquiry(_payload: ContactInquiryPayload) {
-  await Promise.resolve()
 }
