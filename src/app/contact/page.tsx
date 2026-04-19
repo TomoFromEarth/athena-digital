@@ -45,7 +45,7 @@ function RadioInput({
       <input
         type="radio"
         {...props}
-        className="h-6 w-6 flex-none appearance-none rounded-full border border-neutral-950/20 outline-hidden checked:border-[0.5rem] checked:border-neutral-950 focus-visible:ring-1 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+        className="h-6 w-6 flex-none appearance-none rounded-full border border-neutral-950/20 outline-hidden checked:border-8 checked:border-neutral-950 focus-visible:ring-1 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
       />
       <span className="text-base/6 text-neutral-950">{label}</span>
     </label>
@@ -57,7 +57,7 @@ function ContactForm() {
     <FadeIn className="lg:order-last">
       <form>
         <h2 className="font-display text-base font-semibold text-neutral-950">
-          Work inquiries
+          Project inquiries
         </h2>
         <div className="isolate mt-6 -space-y-px rounded-2xl bg-white/50">
           <TextInput label="Name" name="name" autoComplete="name" />
@@ -98,42 +98,41 @@ function ContactDetails() {
   return (
     <FadeIn>
       <h2 className="font-display text-base font-semibold text-neutral-950">
-        Our offices
+        Where we work
       </h2>
       <p className="mt-6 text-base text-neutral-600">
-        Prefer doing things in person? We don’t but we have to list our
-        addresses here for legal reasons.
+        Athena Digital is a remote studio partnering with creators, artists, and
+        brands wherever they are based.
       </p>
 
       <Offices className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2" />
 
       <Border className="mt-16 pt-16">
         <h2 className="font-display text-base font-semibold text-neutral-950">
-          Email us
+          Email
         </h2>
-        <dl className="mt-6 grid grid-cols-1 gap-8 text-sm sm:grid-cols-2">
-          {[
-            ['Careers', 'careers@studioagency.com'],
-            ['Press', 'press@studioagency.com'],
-          ].map(([label, email]) => (
-            <div key={email}>
-              <dt className="font-semibold text-neutral-950">{label}</dt>
-              <dd>
-                <Link
-                  href={`mailto:${email}`}
-                  className="text-neutral-600 hover:text-neutral-950"
-                >
-                  {email}
-                </Link>
-              </dd>
-            </div>
-          ))}
+        <dl className="mt-6 grid grid-cols-1 gap-8 text-sm">
+          {[['Primary contact', 'julia@athenadigital.me']].map(
+            ([label, email]) => (
+              <div key={email}>
+                <dt className="font-semibold text-neutral-950">{label}</dt>
+                <dd>
+                  <Link
+                    href={`mailto:${email}`}
+                    className="text-neutral-600 hover:text-neutral-950"
+                  >
+                    {email}
+                  </Link>
+                </dd>
+              </div>
+            ),
+          )}
         </dl>
       </Border>
 
       <Border className="mt-16 pt-16">
         <h2 className="font-display text-base font-semibold text-neutral-950">
-          Follow us
+          Follow Athena Digital
         </h2>
         <SocialMedia className="mt-6" />
       </Border>
@@ -142,15 +141,22 @@ function ContactDetails() {
 }
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
-  description: 'Let’s work together. We can’t wait to hear from you.',
+  title: 'Contact',
+  description:
+    'Get in touch with Athena Digital for content creation, community management, and trend research support.',
 }
 
 export default function Contact() {
   return (
     <RootLayout>
-      <PageIntro eyebrow="Contact us" title="Let’s work together">
-        <p>We can’t wait to hear from you.</p>
+      <PageIntro
+        eyebrow="Contact"
+        title="Let’s talk about your content and community"
+      >
+        <p>
+          Share what you need help with and Athena Digital will follow up with
+          the best next step.
+        </p>
       </PageIntro>
 
       <Container className="mt-24 sm:mt-32 lg:mt-40">

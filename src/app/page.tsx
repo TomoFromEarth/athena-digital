@@ -1,117 +1,99 @@
 import { type Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
 import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 import { List, ListItem } from '@/components/List'
+import { RootLayout } from '@/components/RootLayout'
 import { SectionIntro } from '@/components/SectionIntro'
 import { StylizedImage } from '@/components/StylizedImage'
 import { Testimonial } from '@/components/Testimonial'
-import logoBrightPath from '@/images/clients/bright-path/logo-light.svg'
-import logoFamilyFund from '@/images/clients/family-fund/logo-light.svg'
-import logoGreenLife from '@/images/clients/green-life/logo-light.svg'
-import logoHomeWork from '@/images/clients/home-work/logo-light.svg'
-import logoMailSmirk from '@/images/clients/mail-smirk/logo-light.svg'
-import logoNorthAdventures from '@/images/clients/north-adventures/logo-light.svg'
-import logoPhobiaDark from '@/images/clients/phobia/logo-dark.svg'
-import logoPhobiaLight from '@/images/clients/phobia/logo-light.svg'
-import logoUnseal from '@/images/clients/unseal/logo-light.svg'
+import { homepageTestimonial } from '@/content/homepage-testimonial'
 import imageLaptop from '@/images/laptop.jpg'
-import { type CaseStudy, type MDXEntry, loadCaseStudies } from '@/lib/mdx'
-import { RootLayout } from '@/components/RootLayout'
 
-const clients = [
-  ['Phobia', logoPhobiaLight],
-  ['Family Fund', logoFamilyFund],
-  ['Unseal', logoUnseal],
-  ['Mail Smirk', logoMailSmirk],
-  ['Home Work', logoHomeWork],
-  ['Green Life', logoGreenLife],
-  ['Bright Path', logoBrightPath],
-  ['North Adventures', logoNorthAdventures],
-]
-
-function Clients() {
+function AudienceStrip() {
   return (
     <div className="mt-24 rounded-4xl bg-neutral-950 py-20 sm:mt-32 sm:py-32 lg:mt-56">
       <Container>
-        <FadeIn className="flex items-center gap-x-8">
-          <h2 className="text-center font-display text-sm font-semibold tracking-wider text-white sm:text-left">
-            We’ve worked with hundreds of amazing people
+        <FadeIn className="max-w-2xl">
+          <h2 className="font-display text-3xl font-medium tracking-tight text-balance text-white sm:text-4xl">
+            A remote studio for people who live in culture, not just ads.
           </h2>
-          <div className="h-px flex-auto bg-neutral-800" />
+          <p className="mt-6 text-lg text-neutral-400">
+            Athena Digital partners with creators, artists, lean teams, and
+            brands that want content and community handled with care—without
+            pretending we are a 200-person network. Proof shows up in the work
+            you can see in the wild, not in a wall of borrowed logos.
+          </p>
+          <p className="mt-6 text-lg text-neutral-400">
+            <Link
+              href="https://instagram.com/athenadigital"
+              className="font-semibold text-white underline decoration-neutral-600 underline-offset-4 transition hover:decoration-white"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Follow along on Instagram
+            </Link>{' '}
+            for a living snapshot of what we are building. More case-style writeups
+            will land on the site as they are ready.
+          </p>
         </FadeIn>
-        <FadeInStagger faster>
-          <ul
-            role="list"
-            className="mt-10 grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-4"
-          >
-            {clients.map(([client, logo]) => (
-              <li key={client}>
-                <FadeIn>
-                  <Image src={logo} alt={client} unoptimized />
-                </FadeIn>
-              </li>
-            ))}
-          </ul>
-        </FadeInStagger>
       </Container>
     </div>
   )
 }
 
-function CaseStudies({
-  caseStudies,
-}: {
-  caseStudies: Array<MDXEntry<CaseStudy>>
-}) {
+const serviceHighlights = [
+  {
+    title: 'Content creation',
+    description:
+      'Scripts, hooks, visuals, and ideas that match how your audience actually talks and scrolls—not generic filler.',
+    href: '/process',
+  },
+  {
+    title: 'Posting & calendars',
+    description:
+      'Consistent publishing rhythms, platform-native formatting, and small adjustments so posts feel intentional week to week.',
+    href: '/process',
+  },
+  {
+    title: 'Community & trends',
+    description:
+      'Comment and DM care, light moderation, and trend spotting so you stay in the conversation without living inside every app.',
+    href: '/process',
+  },
+] as const
+
+function ServiceHighlights() {
   return (
     <>
       <SectionIntro
-        title="Harnessing technology for a brighter future"
+        title="How Athena Digital shows up for you"
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
-          We believe technology is the answer to the world’s greatest
-          challenges. It’s also the cause, so we find ourselves in bit of a
-          catch 22 situation.
+          We focus on the parts of the internet that reward consistency,
+          personality, and cultural fluency—so you can spend more time on the
+          craft and the business behind it.
         </p>
       </SectionIntro>
       <Container className="mt-16">
         <FadeInStagger className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {caseStudies.map((caseStudy) => (
-            <FadeIn key={caseStudy.href} className="flex">
+          {serviceHighlights.map((item) => (
+            <FadeIn key={item.title} className="flex">
               <article className="relative flex w-full flex-col rounded-3xl p-6 ring-1 ring-neutral-950/5 transition hover:bg-neutral-50 sm:p-8">
-                <h3>
-                  <Link href={caseStudy.href}>
+                <h3 className="font-display text-2xl font-semibold text-neutral-950">
+                  <Link href={item.href}>
                     <span className="absolute inset-0 rounded-3xl" />
-                    <Image
-                      src={caseStudy.logo}
-                      alt={caseStudy.client}
-                      className="h-16 w-16"
-                      unoptimized
-                    />
+                    {item.title}
                   </Link>
                 </h3>
-                <p className="mt-6 flex gap-x-2 text-sm text-neutral-950">
-                  <time
-                    dateTime={caseStudy.date.split('-')[0]}
-                    className="font-semibold"
-                  >
-                    {caseStudy.date.split('-')[0]}
-                  </time>
-                  <span className="text-neutral-300" aria-hidden="true">
-                    /
-                  </span>
-                  <span>Case study</span>
+                <p className="mt-6 text-base text-neutral-600">
+                  {item.description}
                 </p>
-                <p className="mt-6 font-display text-2xl font-semibold text-neutral-950">
-                  {caseStudy.title}
-                </p>
-                <p className="mt-4 text-base text-neutral-600">
-                  {caseStudy.description}
+                <p className="mt-6 text-sm font-semibold text-neutral-950">
+                  See how we work <span aria-hidden="true">→</span>
                 </p>
               </article>
             </FadeIn>
@@ -127,12 +109,13 @@ function Services() {
     <>
       <SectionIntro
         eyebrow="Services"
-        title="We help you identify, explore and respond to new opportunities."
+        title="Content, community, and clarity—without the theater."
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
-          As long as those opportunities involve giving us money to re-purpose
-          old projects — we can come up with an endless number of those.
+          Every partnership is a little different, but the through-line is
+          simple: Athena Digital helps you sound like yourself where your people
+          already are.
         </p>
       </SectionIntro>
       <Container className="mt-16">
@@ -147,24 +130,22 @@ function Services() {
             </FadeIn>
           </div>
           <List className="mt-16 lg:mt-0 lg:w-1/2 lg:min-w-132 lg:pl-4">
-            <ListItem title="Web development">
-              We specialise in crafting beautiful, high quality marketing pages.
-              The rest of the website will be a shell that uses lorem ipsum
-              everywhere.
+            <ListItem title="Content creation">
+              Planning and making the posts, stories, and short-form pieces that
+              carry your voice—so your feed feels like a through-line, not a
+              scramble.
             </ListItem>
-            <ListItem title="Application development">
-              We have a team of skilled developers who are experts in the latest
-              app frameworks, like Angular 1 and Google Web Toolkit.
+            <ListItem title="Posting & scheduling support">
+              Calendars, timing, and platform-specific polish so publishing
+              stays steady even when your week gets loud.
             </ListItem>
-            <ListItem title="E-commerce">
-              We are at the forefront of modern e-commerce development. Which
-              mainly means adding your logo to the Shopify store template we’ve
-              used for the past six years.
+            <ListItem title="Community management">
+              Human replies, light moderation, and the small touches that keep
+              people feeling seen in comments and DMs.
             </ListItem>
-            <ListItem title="Custom content management">
-              At Studio we understand the importance of having a robust and
-              customised CMS. That’s why we run all of our client projects out
-              of a single, enormous Joomla instance.
+            <ListItem title="Trend research & cultural listening">
+              Spotting what is rising, what is tired, and what fits your brand
+              without chasing every noise-making trend.
             </ListItem>
           </List>
         </div>
@@ -175,39 +156,63 @@ function Services() {
 
 export const metadata: Metadata = {
   description:
-    'We are a development studio working at the intersection of design and technology.',
+    'Athena Digital is a boutique remote studio for content creation, posting, community management, and trend research.',
 }
 
-export default async function Home() {
-  let caseStudies = (await loadCaseStudies()).slice(0, 3)
+export default function Home() {
+  const hasClientQuote = homepageTestimonial.quote.trim().length > 0
 
   return (
     <RootLayout>
       <Container className="mt-24 sm:mt-32 md:mt-56">
         <FadeIn className="max-w-3xl">
           <h1 className="font-display text-5xl font-medium tracking-tight text-balance text-neutral-950 sm:text-7xl">
-            Award-winning development studio based in Denmark.
+            Content and community help for creators and brands who care how they
+            show up online.
           </h1>
           <p className="mt-6 text-xl text-neutral-600">
-            We are a development studio working at the intersection of design
-            and technology. It’s a really busy intersection though — a lot of
-            our staff have been involved in hit and runs.
+            Athena Digital is a remote studio that plans, creates, posts, and
+            tends the social layer for artists, personal brands, and small teams
+            who want their channels to feel alive—not like a forgotten task list.
           </p>
         </FadeIn>
       </Container>
 
-      <Clients />
+      <AudienceStrip />
 
-      <CaseStudies caseStudies={caseStudies} />
+      <ServiceHighlights />
 
-      <Testimonial
-        className="mt-24 sm:mt-32 lg:mt-40"
-        client={{ name: 'Phobia', logo: logoPhobiaDark }}
-      >
-        The team at Studio went above and beyond with our onboarding, even
-        finding a way to access the user’s microphone without triggering one of
-        those annoying permission dialogs.
-      </Testimonial>
+      {hasClientQuote ? (
+        <Testimonial
+          className="mt-24 sm:mt-32 lg:mt-40"
+          variant="quote"
+          client={{
+            name: homepageTestimonial.authorName,
+            role: homepageTestimonial.authorTitle || undefined,
+          }}
+        >
+          {homepageTestimonial.quote}
+        </Testimonial>
+      ) : (
+        <Testimonial
+          className="mt-24 sm:mt-32 lg:mt-40"
+          variant="note"
+          client={{ name: 'Athena Digital' }}
+        >
+          <p>
+            Client perspectives will appear in this space as we publish them.
+            If Athena Digital has supported your work and you would like to
+            share a short reflection,{' '}
+            <Link
+              href="/contact"
+              className="font-semibold text-neutral-950 underline decoration-neutral-950/30 underline-offset-4 transition hover:decoration-neutral-950"
+            >
+              say hello
+            </Link>{' '}
+            and we will line it up.
+          </p>
+        </Testimonial>
+      )}
 
       <Services />
 

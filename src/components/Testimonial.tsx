@@ -9,10 +9,13 @@ export function Testimonial({
   children,
   client,
   className,
+  variant = 'quote',
 }: {
   children: React.ReactNode
-  client: { logo: ImageProps['src']; name: string }
+  client: { name: string; logo?: ImageProps['src']; role?: string }
   className?: string
+  /** Use `note` for studio-written interim copy; use `quote` for real client words. */
+  variant?: 'quote' | 'note'
 }) {
   return (
     <div
@@ -28,14 +31,33 @@ export function Testimonial({
       <Container>
         <FadeIn>
           <figure className="mx-auto max-w-4xl">
-            <blockquote className="relative font-display text-3xl font-medium tracking-tight text-neutral-950 sm:text-4xl">
-              <p className="before:content-['“'] after:content-['”'] sm:before:absolute sm:before:right-full">
-                {children}
-              </p>
-            </blockquote>
-            <figcaption className="mt-10">
-              <Image src={client.logo} alt={client.name} unoptimized />
-            </figcaption>
+            {variant === 'quote' ? (
+              <blockquote className="relative font-display text-3xl font-medium tracking-tight text-neutral-950 sm:text-4xl">
+                <p className="before:content-['“'] after:content-['”'] sm:before:absolute sm:before:right-full">
+                  {children}
+                </p>
+              </blockquote>
+            ) : (
+              <div className="text-xl text-neutral-600">{children}</div>
+            )}
+            {variant === 'quote' ? (
+              <figcaption className="mt-10">
+                {client.logo ? (
+                  <Image src={client.logo} alt={client.name} unoptimized />
+                ) : (
+                  <cite className="not-italic">
+                    <span className="block font-display text-lg font-semibold text-neutral-950">
+                      {client.name}
+                    </span>
+                    {client.role ? (
+                      <span className="mt-1 block text-base text-neutral-600">
+                        {client.role}
+                      </span>
+                    ) : null}
+                  </cite>
+                )}
+              </figcaption>
+            ) : null}
           </figure>
         </FadeIn>
       </Container>

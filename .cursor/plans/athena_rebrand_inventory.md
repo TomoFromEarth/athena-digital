@@ -5,6 +5,33 @@ This document is the implementation artifact for GitHub issue `#2`:
 
 It inventories every meaningful rebrand surface in the current Tailwind Plus template so the rest of the rollout can execute systematically without changing logic or functionality.
 
+## Rollout status (GitHub is source of truth)
+
+**Parent tracker:** [#1 Tracker: Athena Digital rebrand rollout](https://github.com/TomoFromEarth/athena-digital/issues/1)
+
+| Issue | Title | Status |
+|-------|--------|--------|
+| [#2](https://github.com/TomoFromEarth/athena-digital/issues/2) | Audit all rebrand touchpoints and create a replacement checklist | Completed |
+| [#3](https://github.com/TomoFromEarth/athena-digital/issues/3) | Replace global brand shell copy across layout, nav, and footer | Completed |
+| [#4](https://github.com/TomoFromEarth/athena-digital/issues/4) | Replace Athena logo, favicon, and root metadata defaults | Completed |
+| [#8](https://github.com/TomoFromEarth/athena-digital/issues/8) | Rewrite contact and remote-business trust surfaces for Athena Digital | Completed |
+| [#5](https://github.com/TomoFromEarth/athena-digital/issues/5) | Rewrite the homepage for Athena Digital positioning and proof | Open |
+| [#6](https://github.com/TomoFromEarth/athena-digital/issues/6) | Rewrite the About page around Athena Digital studio credibility | Open |
+| [#7](https://github.com/TomoFromEarth/athena-digital/issues/7) | Rewrite the Process page to match Athena Digital service delivery | Open |
+| [#9](https://github.com/TomoFromEarth/athena-digital/issues/9) | Replace the Work section with lean real Athena proof content | Open |
+| [#10](https://github.com/TomoFromEarth/athena-digital/issues/10) | Replace the Blog section with initial Athena authority content | Open |
+| [#11](https://github.com/TomoFromEarth/athena-digital/issues/11) | Apply Athena Digital light retheme to shared styles and components | Open |
+| [#12](https://github.com/TomoFromEarth/athena-digital/issues/12) | Run final Athena rebrand QA and remove leftover template references | Open |
+
+Checklist sections below retain **audit-time notes** for context. Items **completed in `#3` / `#4` / `#8`** are marked `[x]` with the issue reference. Items not yet done stay `[ ]`.
+
+## Stakeholder alignment for upcoming work (esp. `#5`)
+
+- **Proof / client strip on Home:** Remove all fictional client logos and fictional proof copy. Replace with honest placeholder or lean copy until real proof exists; final proof density may land with `#9`.
+- **Testimonial block:** Keep the section; a **real** client quote will be supplied (stakeholder is a client). Expect to add more quotes over time.
+- **Voice:** **Brand-forward “Athena Digital”** on the homepage for now (not founder-first copy).
+- **Work / case-study links from Home:** Open to **outbound links** (e.g. client Instagram or other public channels) as honest “see the work” proof until MDX work entries are real in `#9`. Exact pattern TBD during `#5` / `#9`.
+
 ## Snapshot
 
 - Routing model: Next.js App Router with static `page.tsx` routes plus MDX-driven `blog` and `work` entries.
@@ -21,31 +48,21 @@ It inventories every meaningful rebrand surface in the current Tailwind Plus tem
 
 ### 1. Global and shared brand shell
 
-- [ ] `src/app/layout.tsx`
-  - Root metadata title template and default title still reference `Studio` and `Denmark`
-  - Root HTML language/theme shell should be reviewed for Athena defaults
-- [ ] `src/components/RootLayout.tsx`
-  - Header CTA copy: `Contact us`
-  - Primary nav labels: `Our Work`, `About Us`, `Our Process`, `Blog`
-  - Mobile nav support headings: `Our offices`, `Follow us`
-  - Shared logo usage via `Logo` and `Logomark`
-- [ ] `src/components/Footer.tsx`
-  - Footer navigation labels and hard-coded work links
-  - Newsletter heading and body copy
-  - Footer legal line: `© Studio Agency Inc.`
-  - Shared footer logo
-- [ ] `src/components/Logo.tsx`
-  - Inline SVG logomark and wordmark are brand-critical and must be replaced directly in code
-- [ ] `src/components/ContactSection.tsx`
-  - Shared CTA heading: `Tell us about your project`
-  - CTA button label: `Say Hej`
-  - Shared location heading: `Our offices`
-- [ ] `src/components/Offices.tsx`
-  - Hard-coded Copenhagen and Billund addresses
-  - Denmark-specific trust/location framing
-- [ ] `src/components/SocialMedia.tsx`
-  - Generic placeholder platform URLs
-  - Platform list should be validated against Athena's real channels
+- [x] `src/app/layout.tsx` — **#4**
+  - Root metadata defaults updated for Athena Digital (title template, description, Open Graph / Twitter text).
+  - Re-audit in `#12` for any page-level or leftover template strings.
+- [x] `src/components/RootLayout.tsx` — **#3** (header logo sizing tweaked post–#4)
+  - Nav, CTA, and mobile support copy reoriented to Athena; no redo in `#5` unless something regresses.
+- [x] `src/components/Footer.tsx` — **#3**
+  - Footer nav, newsletter copy, legal line, and fictional hard-coded work links addressed per shell rebrand.
+- [x] `src/components/Logo.tsx` — **#4**
+  - Uses **canonical PNG** assets (`athena-digital-mark.png`, `athena-digital-logo.png`), not inline SVG (prior Canva “SVG” was raster-in-SVG).
+- [x] `src/components/ContactSection.tsx` — **#3**
+  - Shared CTA and section copy updated to Athena-specific wording.
+- [x] `src/components/Offices.tsx` — **#8**
+  - Fake Copenhagen / Billund / Denmark office model removed; remote-studio framing (e.g. “Serving clients remotely”).
+- [x] `src/components/SocialMedia.tsx` — **#8**
+  - Reduced to agreed placeholder Instagram (`https://instagram.com/athenadigital`); confirm when owned.
 
 ### 2. Reusable content containers and hidden template copy
 
@@ -82,11 +99,9 @@ It inventories every meaningful rebrand surface in the current Tailwind Plus tem
   - Included-in-this-phase tags/lists
   - Embedded testimonial
   - Values section titles and descriptions
-- [ ] `src/app/contact/page.tsx` (`Contact`)
-  - Intro copy and CTA framing
-  - Budget labels are productized for software-style engagements and may not fit Athena
-  - Office heading, office explainer copy, email addresses, and social section
-  - Contact form is a UI shell only; no logic changes are planned here
+- [x] `src/app/contact/page.tsx` (`Contact`) — **#8**
+  - Remote-studio positioning and real primary email: `julia@athenadigital.me`
+  - Form remains UI-only; budget labels / productized copy may still warrant copy pass later
 - [ ] `src/app/work/page.tsx` (`Work index`)
   - Eyebrow/title/body copy
   - Hard-coded client logo strip and supporting proof framing
@@ -126,10 +141,10 @@ It inventories every meaningful rebrand surface in the current Tailwind Plus tem
 
 ### 5. Asset surfaces
 
-- [ ] `src/components/Logo.tsx`
-  - Inline SVG logomark/wordmark replacement required
+- [x] `src/components/Logo.tsx` + `src/images/brand/*` — **#4**
+  - Canonical marks: `athena-digital-mark.png`, `athena-digital-logo.png`
 - [ ] `src/images/clients/**`
-  - `32` SVG assets for fictional/template clients
+  - `32` SVG assets for fictional/template clients — **do not use in honest proof**; removal/replacement aligns with `#5` (home), `#9` (work), `#12` (sweep)
   - Includes light/dark logo and logomark variants
 - [ ] Imported raster imagery referenced in page code and MDX
   - `src/app/page.tsx`: `@/images/laptop.jpg`
@@ -137,10 +152,10 @@ It inventories every meaningful rebrand surface in the current Tailwind Plus tem
   - `src/app/about/page.tsx`: `@/images/team/*.jpg`
   - `src/app/blog/*/page.mdx`: local blog images such as `pilot.jpg`, `server.jpg`, `laptop.jpg`
   - `src/app/work/*/page.mdx`: local hero and portrait images such as `hero.jpg`, `jenny-wilson.jpg`
-- [ ] Favicon/app icon assets
-  - No `favicon` or `icon` files were found in the project search
-- [ ] Root/share metadata imagery
-  - No root-level Open Graph/Twitter asset setup is currently defined
+- [x] Favicon/app icon entry points — **#4**
+  - `src/app/icon.png`, `src/app/apple-icon.png`; template `favicon.ico` removed per rollout
+- [ ] Root/share **image** asset (dedicated OG preview graphic)
+  - Text metadata for OG/Twitter added in **#4**; composed share image still optional / future
 - [ ] Font assets
   - The template references Mona Sans in styling, but the font file did not surface in the filesystem search used for this audit
 
@@ -150,34 +165,35 @@ It inventories every meaningful rebrand surface in the current Tailwind Plus tem
 
 - [ ] Case-study testimonials are duplicated
   - They appear inside the `caseStudy.testimonial` object and again inside the MDX body blockquote
-- [ ] Work links are duplicated
-  - Footer work links are hard-coded independently of the MDX case-study list
+- [x] Work links are duplicated — **partially addressed #3**
+  - Footer no longer hard-links fictional case studies; still verify in `#12` alongside MDX listing
 - [ ] Client proof is duplicated
-  - Homepage/client strips and work-page client strips are hard-coded separately from case-study data
-- [ ] Contact/location trust is duplicated
-  - `Our offices` language appears in `RootLayout`, `ContactSection`, `Offices`, and `contact/page.tsx`
+  - Homepage/client strips and work-page client strips are hard-coded separately from case-study data — **#5** / `#9`
+- [x] Contact/location trust is duplicated — **#3** / **#8**
+  - Remote-studio pattern replaces fake multi-office language across shell + contact surfaces
 - [ ] Shared CTA language is duplicated
   - `Read more` appears in `PageLinks` and the blog index
 
 ### Hidden template remnants
 
-- [ ] `Studio` references remain across layout, homepage, about, work, process, and work MDX entries
-- [ ] Denmark-specific trust cues remain in metadata and address components
-- [ ] Newsletter copy in the footer is generic and may not match Athena's launch strategy
-- [ ] 404 copy is isolated from the main layout and could be missed during broader page rewrites
-- [ ] Social links are placeholder roots, not company-specific handles
+- [ ] `Studio` / developer-agency framing may still appear on **page bodies**, MDX, and indexes — **`#5`–`#7`, `#9`, `#10`, `#12`**
+- [x] Denmark / fake office trust cues in **global shell and contact** — addressed in **#4** / **#8** (re-sweep in `#12`)
+- [x] Footer newsletter copy — **#3** (iterate if strategy changes)
+- [ ] 404 copy is isolated from the main layout and could be missed during broader page rewrites — **`#12`**
+- [ ] Social links: Instagram placeholder acceptable for now — **confirm when live** — **`#8`** / `#12`
 
 ## Content and asset gaps that block implementation
 
-- [ ] Final Athena logo assets or approved SVG direction
-- [ ] Final favicon/app icon assets
-- [ ] Final contact email(s), public contact method, and social handles
-- [ ] Approved remote-business location language
-- [ ] Homepage proof strategy that stays honest to current business scale
-- [ ] Real work examples for the `Work` section
-- [ ] Real blog/article topics and authorship approach for launch
-- [ ] Founder/studio bio material and any approved headshots
-- [ ] Athena-approved palette, typography, and image direction for the light retheme
+- [x] Athena logo assets for header/footer — **#4** (PNG kit in `src/images/brand/`)
+- [x] Favicon/app icon assets — **#4**
+- [x] Primary public contact email — **#8** (`julia@athenadigital.me`)
+- [x] Remote-business location language (baseline) — **#8** (“Serving clients remotely”)
+- [ ] Social handles fully confirmed (Instagram placeholder only)
+- [ ] Homepage proof strategy — **in progress `#5`**: no fictional logos/copy; real testimonial to be supplied; optional outbound “see the work” links
+- [ ] Real work examples for the `Work` section — **`#9`**
+- [ ] Real blog/article topics and authorship approach for launch — **`#10`**
+- [ ] Founder/studio bio material and any approved headshots — **`#6`** and asset pass
+- [ ] Athena-approved palette, typography, and image direction for the light retheme — **`#11`**
 - [ ] Confirmation on whether the newsletter UI stays as copy-only, is repurposed, or is removed later
 
 ## Audit notes
@@ -189,10 +205,6 @@ It inventories every meaningful rebrand surface in the current Tailwind Plus tem
 
 ## Suggested handoff to follow-up issues
 
-- Issue `#3`: shared shell copy in layout, nav, footer, newsletter, and shared CTA
-- Issue `#4`: logo replacement, root metadata, favicon, and root brand defaults
-- Issue `#8`: contact details, remote-business trust language, offices, and social handles
-- Issues `#5`, `#6`, `#7`: page-level copy rewrites for home, about, and process
-- Issues `#9`, `#10`: replacement of fictional work/blog entries with lean real Athena content
-- Issue `#11`: light visual retheme after most content direction is stable
-- Issue `#12`: final sweep for leftover `Studio`, Denmark, office, and placeholder references
+- **Done:** `#3` (shared shell copy), `#4` (logo, root metadata, icons), `#8` (contact, remote trust, offices, social placeholder)
+- **Next:** `#5` homepage messaging and honest proof (no fictional logos/copy; keep testimonial section; brand-forward voice)
+- **Then:** `#7` Process, `#6` About (tracker order), `#9` Work MDX, `#10` Blog MDX, `#11` light retheme, `#12` final QA sweep
