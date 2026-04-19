@@ -34,7 +34,7 @@ export default async function BlogArticleWrapper({
               {formatDate(article.date)}
             </time>
             <p className="mt-6 text-sm font-semibold text-neutral-950">
-              by {article.author.name}, {article.author.role}
+              {article.author.name} · {article.author.role}
             </p>
           </header>
         </FadeIn>
@@ -49,7 +49,7 @@ export default async function BlogArticleWrapper({
       {moreArticles.length > 0 && (
         <PageLinks
           className="mt-24 sm:mt-32 lg:mt-40"
-          title="More articles"
+          title="More from the blog"
           pages={moreArticles}
         />
       )}
