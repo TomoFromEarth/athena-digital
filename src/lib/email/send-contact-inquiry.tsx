@@ -5,7 +5,7 @@ import type { ContactInquiryPayload } from '@/lib/contact/inquiry-types'
 
 export type SendContactInquiryResult =
   | { ok: true }
-  | { ok: false; reason: 'not_configured' | 'send_failed' }
+  | { ok: false; reason: 'not_configured' | 'send_failed'; userMessage?: string }
 
 export async function sendContactInquiryEmail(
   payload: ContactInquiryPayload,
@@ -37,6 +37,25 @@ export async function sendContactInquiryEmail(
 
   if (error) {
     console.error('[contact] Resend send failed:', error)
+
+    const isTestingRecipientOnly =
+      error.statusCode === 403 &&
+      error.name === 'validation_error' &&
+      typeof error.message === 'string' &&
+      error.message.includes('only send testing emails')
+
+    if (isTestingRecipientOnly) {
+      console.error(
+        '[contact] Resend test mode: recipient must be your Resend account email, or verify a domain at https://resend.com/domains and use EMAIL_FROM on that domain.',
+      )
+      return {
+        ok: false,
+        reason: 'send_failed',
+        userMessage:
+          'We could not deliver your message yet (email is still in test mode). Please email julia@athenadigital.me directly.',
+      }
+    }
+
     return { ok: false, reason: 'send_failed' }
   }
 

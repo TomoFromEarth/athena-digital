@@ -26,9 +26,11 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - `npm run lint` — ESLint
 - `npm run email:dev` — preview [React Email](https://react.email) templates under `./emails`
 
-## Contact form email (Resend)
+## Contact form (Resend + React Email)
 
-Production sends use [Resend](https://resend.com). Copy `.env.example` to `.env.local`, add `RESEND_API_KEY`, `EMAIL_FROM`, and optionally `CONTACT_INQUIRY_TO_EMAIL`. Without these, the contact form shows a configuration error instead of sending.
+Inquiries are sent with **Resend** using **React Email** templates from `./emails`. Full setup, env vars, Vercel notes, honeypot behavior, and a **QA checklist** are in [docs/contact-form.md](./docs/contact-form.md).
+
+Quick start: copy `.env.example` to `.env.local`, add `RESEND_API_KEY` and `EMAIL_FROM`, verify your domain in [Resend](https://resend.com/domains). Preview templates with `npm run email:dev`.
 
 ## Learn more
 

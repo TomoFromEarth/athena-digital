@@ -87,16 +87,24 @@ export function ContactForm() {
   return (
     <FadeIn className="lg:order-last">
       <form action={formAction}>
+        {/* Honeypot: hidden from users; bots often fill. Server discards without sending. */}
+        <div
+          className="pointer-events-none absolute top-0 -left-2499.75 h-0 w-0 overflow-hidden opacity-0"
+          aria-hidden="true"
+        >
+          <input
+            type="text"
+            name="company_website"
+            tabIndex={-1}
+            autoComplete="off"
+            defaultValue=""
+          />
+        </div>
         <h2 className="font-display text-base font-semibold text-neutral-950">
           Project inquiries
         </h2>
         <div className="isolate mt-6 -space-y-px rounded-2xl bg-white/50">
-          <TextInput
-            label="Name"
-            name="name"
-            autoComplete="name"
-            required
-          />
+          <TextInput label="Name" name="name" autoComplete="name" required />
           <TextInput
             label="Email"
             type="email"
@@ -134,21 +142,9 @@ export function ContactForm() {
                   value="25"
                   required
                 />
-                <RadioInput
-                  label="$50K – $100K"
-                  name="budget"
-                  value="50"
-                />
-                <RadioInput
-                  label="$100K – $150K"
-                  name="budget"
-                  value="100"
-                />
-                <RadioInput
-                  label="More than $150K"
-                  name="budget"
-                  value="150"
-                />
+                <RadioInput label="$50K – $100K" name="budget" value="50" />
+                <RadioInput label="$100K – $150K" name="budget" value="100" />
+                <RadioInput label="More than $150K" name="budget" value="150" />
               </div>
             </fieldset>
           </div>

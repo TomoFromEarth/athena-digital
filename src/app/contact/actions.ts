@@ -27,6 +27,12 @@ export async function submitContactInquiry(
   _prevState: ContactActionState,
   formData: FormData,
 ): Promise<ContactActionState> {
+  const honeypot = String(formData.get('company_website') ?? '').trim()
+  if (honeypot) {
+    console.warn('[contact] Honeypot filled; discarding submission')
+    return { status: 'success' }
+  }
+
   const name = String(formData.get('name') ?? '').trim()
   const email = String(formData.get('email') ?? '').trim()
   const company = String(formData.get('company') ?? '').trim()
@@ -97,6 +103,9 @@ export async function submitContactInquiry(
         error:
           'Email delivery is not configured yet. Please reach out directly at julia@athenadigital.me.',
       }
+    }
+    if (sendResult.userMessage) {
+      return { status: 'error', error: sendResult.userMessage }
     }
     return {
       status: 'error',
