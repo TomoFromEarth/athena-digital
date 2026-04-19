@@ -1,9 +1,14 @@
 'use client'
 
-import { useId } from 'react'
+import { useActionState, useId } from 'react'
 
 import { Button } from '@/components/Button'
 import { FadeIn } from '@/components/FadeIn'
+
+import {
+  type ContactActionState,
+  submitContactInquiry,
+} from '@/app/contact/actions'
 
 function TextInput({
   label,
@@ -71,14 +76,17 @@ function RadioInput({
   )
 }
 
+const contactInitialState: ContactActionState = { status: 'idle' }
+
 export function ContactForm() {
+  const [state, formAction, isPending] = useActionState(
+    submitContactInquiry,
+    contactInitialState,
+  )
+
   return (
     <FadeIn className="lg:order-last">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-        }}
-      >
+      <form action={formAction}>
         <h2 className="font-display text-base font-semibold text-neutral-950">
           Project inquiries
         </h2>
@@ -145,9 +153,21 @@ export function ContactForm() {
             </fieldset>
           </div>
         </div>
-        <Button type="submit" className="mt-10">
-          Let’s work together
+        <Button type="submit" className="mt-10" disabled={isPending}>
+          {isPending ? 'Sending…' : 'Let’s work together'}
         </Button>
+        <div aria-live="polite" className="mt-6 text-sm">
+          {state.status === 'error' ? (
+            <p role="alert" className="text-red-600">
+              {state.error}
+            </p>
+          ) : null}
+          {state.status === 'success' ? (
+            <p role="status" className="text-neutral-950">
+              Thanks — your inquiry was received.
+            </p>
+          ) : null}
+        </div>
       </form>
     </FadeIn>
   )
