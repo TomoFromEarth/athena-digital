@@ -1,4 +1,5 @@
 import { type Metadata } from 'next'
+import { T } from 'gt-next'
 
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
@@ -20,7 +21,7 @@ function Section({
   image,
   children,
 }: {
-  title: string
+  title: React.ReactNode
   image: React.ComponentPropsWithoutRef<typeof StylizedImage>
   children: React.ReactNode
 }) {
@@ -56,7 +57,7 @@ function Section({
 function Discover() {
   return (
     <Section
-      title="Discover"
+      title={<T>Discover</T>}
       image={{
         src: imageDiscover,
         // Crop: add Tailwind object-* (e.g. object-top, object-[50%_30%]) on StylizedImage’s inner img.
@@ -65,36 +66,54 @@ function Discover() {
     >
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          Athena Digital starts by getting clear on your{' '}
-          <strong className="font-semibold text-neutral-950">goals</strong>,
-          your audience, and where you already show up online. We review what is
-          working, what feels stiff, and where there is room to sound more like
-          you.
+          <T>
+            Athena Digital starts by getting clear on your{' '}
+            <strong className="font-semibold text-neutral-950">goals</strong>,
+            your audience, and where you already show up online. We review
+            what is working, what feels stiff, and where there is room to
+            sound more like you.
+          </T>
         </p>
         <p>
-          That usually means a grounded look at your channels, your voice, and
-          the rhythms of your week—so recommendations fit real capacity, not a
-          fantasy content factory.
+          <T>
+            That usually means a grounded look at your channels, your voice,
+            and the rhythms of your week—so recommendations fit real capacity,
+            not a fantasy content factory.
+          </T>
         </p>
         <p>
-          By the end of this phase you have a shared picture of priorities and a
-          practical{' '}
-          <strong className="font-semibold text-neutral-950">plan</strong> for
-          what to make first, what to post where, and how we will measure
-          “better” in a way that matters to you.
+          <T>
+            By the end of this phase you have a shared picture of priorities
+            and a practical{' '}
+            <strong className="font-semibold text-neutral-950">plan</strong>{' '}
+            for what to make first, what to post where, and how we will
+            measure “better” in a way that matters to you.
+          </T>
         </p>
       </div>
 
       <h3 className="mt-12 font-display text-base font-semibold text-neutral-950">
-        Included in this phase
+        <T>Included in this phase</T>
       </h3>
       <TagList className="mt-4">
-        <TagListItem>Channel and content audit</TagListItem>
-        <TagListItem>Audience and positioning check-in</TagListItem>
-        <TagListItem>Voice, pillars, and guardrails</TagListItem>
-        <TagListItem>Light trend and competitor context</TagListItem>
-        <TagListItem>Goals, constraints, and success signals</TagListItem>
-        <TagListItem>Roadmap for the next stretch of work</TagListItem>
+        <TagListItem>
+          <T>Channel and content audit</T>
+        </TagListItem>
+        <TagListItem>
+          <T>Audience and positioning check-in</T>
+        </TagListItem>
+        <TagListItem>
+          <T>Voice, pillars, and guardrails</T>
+        </TagListItem>
+        <TagListItem>
+          <T>Light trend and competitor context</T>
+        </TagListItem>
+        <TagListItem>
+          <T>Goals, constraints, and success signals</T>
+        </TagListItem>
+        <TagListItem>
+          <T>Roadmap for the next stretch of work</T>
+        </TagListItem>
       </TagList>
     </Section>
   )
@@ -102,41 +121,55 @@ function Discover() {
 
 function Create() {
   return (
-    <Section title="Create" image={{ src: imageCreate, shape: 1 }}>
+    <Section title={<T>Create</T>} image={{ src: imageCreate, shape: 1 }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          Here Athena Digital turns the plan into{' '}
-          <strong className="font-semibold text-neutral-950">
-            assets and rhythms
-          </strong>
-          : drafts, hooks, captions, visual direction, and a posting calendar
-          that respects your brand and your bandwidth.
+          <T>
+            Here Athena Digital turns the plan into{' '}
+            <strong className="font-semibold text-neutral-950">
+              assets and rhythms
+            </strong>
+            : drafts, hooks, captions, visual direction, and a posting
+            calendar that respects your brand and your bandwidth.
+          </T>
         </p>
         <p>
-          You stay in the loop with clear checkpoints—what is queued, what needs
-          your eyes, and what Athena Digital can move forward. No black-box
-          mystery weeks where nothing ships.
+          <T>
+            You stay in the loop with clear checkpoints—what is queued, what
+            needs your eyes, and what Athena Digital can move forward. No
+            black-box mystery weeks where nothing ships.
+          </T>
         </p>
         <p>
-          The mix might include batching content, adapting one idea across
-          platforms, or building a small library you can pull from—always in
-          service of sounding consistent, human, and culturally aware.
+          <T>
+            The mix might include batching content, adapting one idea across
+            platforms, or building a small library you can pull from—always in
+            service of sounding consistent, human, and culturally aware.
+          </T>
         </p>
       </div>
 
       <h3 className="mt-12 font-display text-base font-semibold text-neutral-950">
-        Included in this phase
+        <T>Included in this phase</T>
       </h3>
       <TagList className="mt-4">
-        <TagListItem>Editorial calendar and content outlines</TagListItem>
         <TagListItem>
-          Drafts for posts, stories, and short-form pieces
+          <T>Editorial calendar and content outlines</T>
         </TagListItem>
-        <TagListItem>Platform-specific tweaks and formatting</TagListItem>
-        <TagListItem>Asset notes or simple creative direction</TagListItem>
-        <TagListItem>Revision rounds scoped to the engagement</TagListItem>
         <TagListItem>
-          Handoff notes so you know how to use what we made
+          <T>Drafts for posts, stories, and short-form pieces</T>
+        </TagListItem>
+        <TagListItem>
+          <T>Platform-specific tweaks and formatting</T>
+        </TagListItem>
+        <TagListItem>
+          <T>Asset notes or simple creative direction</T>
+        </TagListItem>
+        <TagListItem>
+          <T>Revision rounds scoped to the engagement</T>
+        </TagListItem>
+        <TagListItem>
+          <T>Handoff notes so you know how to use what we made</T>
         </TagListItem>
       </TagList>
     </Section>
@@ -145,42 +178,58 @@ function Create() {
 
 function Deliver() {
   return (
-    <Section title="Deliver" image={{ src: imageDeliver, shape: 2 }}>
+    <Section title={<T>Deliver</T>} image={{ src: imageDeliver, shape: 2 }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          Delivery is where content meets the feed:{' '}
-          <strong className="font-semibold text-neutral-950">scheduling</strong>
-          , publishing, and the small fixes that keep posts from feeling rushed
-          or off-brand at go-live.
+          <T>
+            Delivery is where content meets the feed:{' '}
+            <strong className="font-semibold text-neutral-950">
+              scheduling
+            </strong>
+            , publishing, and the small fixes that keep posts from feeling
+            rushed or off-brand at go-live.
+          </T>
         </p>
         <p>
-          When it is part of your scope, Athena Digital also helps with{' '}
-          <strong className="font-semibold text-neutral-950">community</strong>{' '}
-          touchpoints—thoughtful replies, light moderation, and spotting moments
-          worth amplifying or adjusting.
+          <T>
+            When it is part of your scope, Athena Digital also helps with{' '}
+            <strong className="font-semibold text-neutral-950">
+              community
+            </strong>{' '}
+            touchpoints—thoughtful replies, light moderation, and spotting
+            moments worth amplifying or adjusting.
+          </T>
         </p>
         <p>
-          We keep an eye on what is resonating, what is tiring, and what the
-          conversation around your space is doing—so the next cycle of work
-          stays grounded in reality, not guesswork.
+          <T>
+            We keep an eye on what is resonating, what is tiring, and what the
+            conversation around your space is doing—so the next cycle of work
+            stays grounded in reality, not guesswork.
+          </T>
         </p>
       </div>
 
       <h3 className="mt-12 font-display text-base font-semibold text-neutral-950">
-        Included in this phase
+        <T>Included in this phase</T>
       </h3>
       <List className="mt-8">
-        <ListItem title="Publishing & quality checks">
-          Scheduling, final read-throughs, and platform-native polish so what
-          goes live matches what you approved.
+        <ListItem title={<T>Publishing &amp; quality checks</T>}>
+          <T>
+            Scheduling, final read-throughs, and platform-native polish so
+            what goes live matches what you approved.
+          </T>
         </ListItem>
-        <ListItem title="Community care">
-          Human responses and light moderation where agreed—so your people feel
-          heard without you living in the inbox.
+        <ListItem title={<T>Community care</T>}>
+          <T>
+            Human responses and light moderation where agreed—so your people
+            feel heard without you living in the inbox.
+          </T>
         </ListItem>
-        <ListItem title="Iteration & check-ins">
-          Short retros on what landed, what to tweak, and what is next—aligned
-          to the cadence we set together.
+        <ListItem title={<T>Iteration &amp; check-ins</T>}>
+          <T>
+            Short retros on what landed, what to tweak, and what is
+            next—aligned to the cadence we set together.
+          </T>
         </ListItem>
       </List>
     </Section>
@@ -198,42 +247,60 @@ function Values() {
       </div>
 
       <SectionIntro
-        eyebrow="How Athena Digital works"
-        title="Warm, precise, and honest about what it takes"
+        eyebrow={<T>How Athena Digital works</T>}
+        title={<T>Warm, precise, and honest about what it takes</T>}
       >
         <p>
-          A boutique studio only works if people trust the collaboration. These
-          are the ideas Athena Digital tries to live up to on every engagement.
+          <T>
+            A boutique studio only works if people trust the collaboration.
+            These are the ideas Athena Digital tries to live up to on every
+            engagement.
+          </T>
         </p>
       </SectionIntro>
 
       <Container className="mt-24">
         <GridList>
-          <GridListItem title="Meticulous">
-            Voice and detail matter. We sweat the small stuff in captions,
-            timing, and tone so your presence feels intentional, not accidental.
+          <GridListItem title={<T>Meticulous</T>}>
+            <T>
+              Voice and detail matter. We sweat the small stuff in captions,
+              timing, and tone so your presence feels intentional, not
+              accidental.
+            </T>
           </GridListItem>
-          <GridListItem title="Efficient">
-            Your time is limited. We aim for calendars and workflows that
-            respect how you actually work—not theoretical infinite capacity.
+          <GridListItem title={<T>Efficient</T>}>
+            <T>
+              Your time is limited. We aim for calendars and workflows that
+              respect how you actually work—not theoretical infinite capacity.
+            </T>
           </GridListItem>
-          <GridListItem title="Adaptable">
-            Platforms and trends move. Athena Digital adjusts formats and
-            priorities with you instead of forcing a rigid playbook past its
-            sell-by date.
+          <GridListItem title={<T>Adaptable</T>}>
+            <T>
+              Platforms and trends move. Athena Digital adjusts formats and
+              priorities with you instead of forcing a rigid playbook past its
+              sell-by date.
+            </T>
           </GridListItem>
-          <GridListItem title="Honest">
-            We are upfront about scope, trade-offs, and what is realistic for a
-            small remote studio. No inflated promises about scale Athena Digital
-            cannot back up.
+          <GridListItem title={<T>Honest</T>}>
+            <T>
+              We are upfront about scope, trade-offs, and what is realistic
+              for a small remote studio. No inflated promises about scale
+              Athena Digital cannot back up.
+            </T>
           </GridListItem>
-          <GridListItem title="Loyal">
-            The best work comes from relationships where feedback is easy and
-            repeat collaboration feels natural—not transactional one-offs.
+          <GridListItem title={<T>Loyal</T>}>
+            <T>
+              The best work comes from relationships where feedback is easy
+              and repeat collaboration feels natural—not transactional
+              one-offs.
+            </T>
           </GridListItem>
-          <GridListItem title="Culturally fluent">
-            Athena Digital pays attention to how people really talk and scroll,
-            so content feels current without chasing every fleeting gimmick.
+          <GridListItem title={<T>Culturally fluent</T>}>
+            <T>
+              Athena Digital pays attention to how people really talk and
+              scroll, so content feels current without chasing every fleeting
+              gimmick.
+            </T>
           </GridListItem>
         </GridList>
       </Container>
@@ -251,14 +318,16 @@ export default function Process() {
   return (
     <RootLayout>
       <PageIntro
-        eyebrow="Our process"
-        title="How Athena Digital works with you"
+        eyebrow={<T>Our process</T>}
+        title={<T>How Athena Digital works with you</T>}
       >
         <p>
-          Most partnerships move through three chapters: understanding your
-          world, making the work, and shipping it with care. The details change
-          for every client, but the rhythm stays easy to follow—so you always
-          know where things stand.
+          <T>
+            Most partnerships move through three chapters: understanding your
+            world, making the work, and shipping it with care. The details
+            change for every client, but the rhythm stays easy to follow—so
+            you always know where things stand.
+          </T>
         </p>
       </PageIntro>
 
