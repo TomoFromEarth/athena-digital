@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "gt translate && next build --webpack",
+    "build": "gt translate --ignore-errors && next build --webpack",
     "start": "next start",
     "lint": "next lint",
     "email:dev": "email dev --dir ./emails"
