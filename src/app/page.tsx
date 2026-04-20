@@ -1,6 +1,6 @@
 import { type Metadata } from 'next'
 import Link from 'next/link'
-import { msg, T } from 'gt-next'
+import { decodeMsg, msg, T } from 'gt-next'
 import { getGT } from 'gt-next/server'
 
 import { ContactSection } from '@/components/ContactSection'
@@ -202,8 +202,11 @@ export const metadata: Metadata = {
     'Athena Digital is a boutique remote studio for content creation, posting, community management, and trend research.',
 }
 
-export default function Home() {
-  const hasClientQuote = homepageTestimonial.quote.trim().length > 0
+export default async function Home() {
+  const gt = await getGT()
+  const hasClientQuote =
+    decodeMsg(homepageTestimonial.quote).trim().length > 0
+  const authorTitle = gt(homepageTestimonial.authorTitle)
 
   return (
     <RootLayout>
@@ -236,10 +239,10 @@ export default function Home() {
           variant="quote"
           client={{
             name: homepageTestimonial.authorName,
-            role: homepageTestimonial.authorTitle || undefined,
+            role: authorTitle || undefined,
           }}
         >
-          {homepageTestimonial.quote}
+          {gt(homepageTestimonial.quote)}
         </Testimonial>
       ) : (
         <Testimonial
