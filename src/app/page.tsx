@@ -1,5 +1,7 @@
 import { type Metadata } from 'next'
 import Link from 'next/link'
+import { msg, T } from 'gt-next'
+import { getGT } from 'gt-next/server'
 
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
@@ -29,25 +31,31 @@ function AudienceStrip() {
       <Container>
         <FadeIn className="max-w-2xl">
           <h2 className="font-display text-3xl font-medium tracking-tight text-balance text-white sm:text-4xl">
-            A remote studio for people who live in culture, not just ads.
+            <T>
+              A remote studio for people who live in culture, not just ads.
+            </T>
           </h2>
           <p className="mt-6 text-lg text-neutral-400">
-            Athena Digital partners with creators, artists, lean teams, and
-            brands that want content and community handled with care—without
-            pretending we are a 200-person network. Proof shows up in the work
-            you can see in the wild, not in a wall of borrowed logos.
+            <T>
+              Athena Digital partners with creators, artists, lean teams, and
+              brands that want content and community handled with care—without
+              pretending we are a 200-person network. Proof shows up in the
+              work you can see in the wild, not in a wall of borrowed logos.
+            </T>
           </p>
           <p className="mt-6 text-lg text-neutral-400">
-            <Link
-              href="https://instagram.com/athenadigital"
-              className="font-semibold text-white underline decoration-neutral-600 underline-offset-4 transition hover:decoration-white"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Follow along on Instagram
-            </Link>{' '}
-            for a living snapshot of what we are building. More case-style
-            writeups will land on the site as they are ready.
+            <T>
+              <Link
+                href="https://instagram.com/athenadigital"
+                className="font-semibold text-white underline decoration-neutral-600 underline-offset-4 transition hover:decoration-white"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Follow along on Instagram
+              </Link>{' '}
+              for a living snapshot of what we are building. More case-style
+              writeups will land on the site as they are ready.
+            </T>
           </p>
         </FadeIn>
       </Container>
@@ -57,54 +65,62 @@ function AudienceStrip() {
 
 const serviceHighlights = [
   {
-    title: 'Content creation',
-    description:
+    title: msg('Content creation'),
+    description: msg(
       'Scripts, hooks, visuals, and ideas that match how your audience actually talks and scrolls—not generic filler.',
+    ),
     href: '/process',
   },
   {
-    title: 'Posting & calendars',
-    description:
+    title: msg('Posting & calendars'),
+    description: msg(
       'Consistent publishing rhythms, platform-native formatting, and small adjustments so posts feel intentional week to week.',
+    ),
     href: '/process',
   },
   {
-    title: 'Community & trends',
-    description:
+    title: msg('Community & trends'),
+    description: msg(
       'Comment and DM care, light moderation, and trend spotting so you stay in the conversation without living inside every app.',
+    ),
     href: '/process',
   },
-] as const
+]
 
-function ServiceHighlights() {
+async function ServiceHighlights() {
+  const gt = await getGT()
   return (
     <>
       <SectionIntro
-        title="How Athena Digital shows up for you"
+        title={<T>How Athena Digital shows up for you</T>}
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
-          We focus on the parts of the internet that reward consistency,
-          personality, and cultural fluency—so you can spend more time on the
-          craft and the business behind it.
+          <T>
+            We focus on the parts of the internet that reward consistency,
+            personality, and cultural fluency—so you can spend more time on the
+            craft and the business behind it.
+          </T>
         </p>
       </SectionIntro>
       <Container className="mt-16">
         <FadeInStagger className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {serviceHighlights.map((item) => (
-            <FadeIn key={item.title} className="flex">
+            <FadeIn key={gt(item.title)} className="flex">
               <article className="relative flex w-full flex-col rounded-3xl p-6 ring-1 ring-neutral-950/5 transition hover:bg-neutral-50 sm:p-8">
                 <h3 className="font-display text-2xl font-semibold text-neutral-950">
                   <Link href={item.href}>
                     <span className="absolute inset-0 rounded-3xl" />
-                    {item.title}
+                    {gt(item.title)}
                   </Link>
                 </h3>
                 <p className="mt-6 text-base text-neutral-600">
-                  {item.description}
+                  {gt(item.description)}
                 </p>
                 <p className="mt-6 text-sm font-semibold text-neutral-950">
-                  See how we work <span aria-hidden="true">→</span>
+                  <T>
+                    See how we work <span aria-hidden="true">→</span>
+                  </T>
                 </p>
               </article>
             </FadeIn>
@@ -119,14 +135,16 @@ function Services() {
   return (
     <>
       <SectionIntro
-        eyebrow="Services"
-        title="Content, community, and clarity—without the theater."
+        eyebrow={<T>Services</T>}
+        title={<T>Content, community, and clarity—without the theater.</T>}
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
-          Every partnership is a little different, but the through-line is
-          simple: Athena Digital helps you sound like yourself where your people
-          already are.
+          <T>
+            Every partnership is a little different, but the through-line is
+            simple: Athena Digital helps you sound like yourself where your
+            people already are.
+          </T>
         </p>
       </SectionIntro>
       <Container className="mt-16">
@@ -147,22 +165,30 @@ function Services() {
             </FadeIn>
           </div>
           <List className="mt-16 lg:mt-0 lg:w-1/2 lg:min-w-132 lg:pl-4">
-            <ListItem title="Content creation">
-              Planning and making the posts, stories, and short-form pieces that
-              carry your voice—so your feed feels like a through-line, not a
-              scramble.
+            <ListItem title={<T>Content creation</T>}>
+              <T>
+                Planning and making the posts, stories, and short-form pieces
+                that carry your voice—so your feed feels like a through-line,
+                not a scramble.
+              </T>
             </ListItem>
-            <ListItem title="Posting & scheduling support">
-              Calendars, timing, and platform-specific polish so publishing
-              stays steady even when your week gets loud.
+            <ListItem title={<T>Posting & scheduling support</T>}>
+              <T>
+                Calendars, timing, and platform-specific polish so publishing
+                stays steady even when your week gets loud.
+              </T>
             </ListItem>
-            <ListItem title="Community management">
-              Human replies, light moderation, and the small touches that keep
-              people feeling seen in comments and DMs.
+            <ListItem title={<T>Community management</T>}>
+              <T>
+                Human replies, light moderation, and the small touches that
+                keep people feeling seen in comments and DMs.
+              </T>
             </ListItem>
-            <ListItem title="Trend research & cultural listening">
-              Spotting what is rising, what is tired, and what fits your brand
-              without chasing every noise-making trend.
+            <ListItem title={<T>Trend research &amp; cultural listening</T>}>
+              <T>
+                Spotting what is rising, what is tired, and what fits your
+                brand without chasing every noise-making trend.
+              </T>
             </ListItem>
           </List>
         </div>
@@ -184,14 +210,18 @@ export default function Home() {
       <Container className="mt-24 sm:mt-32 md:mt-56">
         <FadeIn className="max-w-3xl">
           <h1 className="font-display text-5xl font-medium tracking-tight text-balance text-neutral-950 sm:text-7xl">
-            Content and community help for creators and brands who care how they
-            show up online.
+            <T>
+              Content and community help for creators and brands who care how
+              they show up online.
+            </T>
           </h1>
           <p className="mt-6 text-xl text-neutral-600">
-            Athena Digital is a remote studio that plans, creates, posts, and
-            tends the social layer for artists, personal brands, and small teams
-            who want their channels to feel alive—not like a forgotten task
-            list.
+            <T>
+              Athena Digital is a remote studio that plans, creates, posts, and
+              tends the social layer for artists, personal brands, and small
+              teams who want their channels to feel alive—not like a forgotten
+              task list.
+            </T>
           </p>
         </FadeIn>
       </Container>
@@ -218,16 +248,18 @@ export default function Home() {
           client={{ name: 'Athena Digital' }}
         >
           <p>
-            Client perspectives will appear in this space as we publish them. If
-            Athena Digital has supported your work and you would like to share a
-            short reflection,{' '}
-            <Link
-              href="/contact"
-              className="font-semibold text-neutral-950 underline decoration-neutral-950/30 underline-offset-4 transition hover:decoration-neutral-950"
-            >
-              say hello
-            </Link>{' '}
-            and we will line it up.
+            <T>
+              Client perspectives will appear in this space as we publish them.
+              If Athena Digital has supported your work and you would like to
+              share a short reflection,{' '}
+              <Link
+                href="/contact"
+                className="font-semibold text-neutral-950 underline decoration-neutral-950/30 underline-offset-4 transition hover:decoration-neutral-950"
+              >
+                say hello
+              </Link>{' '}
+              and we will line it up.
+            </T>
           </p>
         </Testimonial>
       )}

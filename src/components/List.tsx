@@ -24,14 +24,16 @@ export function ListItem({
   title,
 }: {
   children: React.ReactNode
-  title?: string
+  title?: React.ReactNode
 }) {
   return (
     <li className="group mt-10 first:mt-0">
       <FadeIn>
         <Border className="pt-10 group-first:pt-0 group-first:before:hidden group-first:after:hidden">
           {title && (
-            <strong className="font-semibold text-neutral-950">{`${title}. `}</strong>
+            <strong className="font-semibold text-neutral-950">
+              {title}.{' '}
+            </strong>
           )}
           {children}
         </Border>
