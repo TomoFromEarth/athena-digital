@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from 'react'
+import { T, useGT } from 'gt-next/client'
 
 import { Button } from '@/components/Button'
 import { FadeIn } from '@/components/FadeIn'
@@ -230,25 +231,29 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
         className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm ring-1 ring-neutral-950/5"
       >
         <p className="font-display text-lg font-semibold text-neutral-950">
-          Thanks — we received your inquiry
+          <T>Thanks — we received your inquiry</T>
         </p>
         <p className="mt-3 text-base leading-relaxed text-neutral-600">
-          Athena Digital will follow up by email. If you need anything else in
-          the meantime, you can reach us at{' '}
-          <a
-            href="mailto:julia@athenadigital.me"
-            className="font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-950"
-          >
-            julia@athenadigital.me
-          </a>
-          .
+          <T>
+            Athena Digital will follow up by email. If you need anything else
+            in the meantime, you can reach us at{' '}
+            <a
+              href="mailto:julia@athenadigital.me"
+              className="font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-950"
+            >
+              julia@athenadigital.me
+            </a>
+            .
+          </T>
         </p>
         <Button type="button" className="mt-8" onClick={onReset}>
-          Send another inquiry
+          <T>Send another inquiry</T>
         </Button>
       </div>
     )
   }
+
+  const gt = useGT()
 
   return (
     <form
@@ -277,12 +282,12 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
           id="contact-form-title"
           className="font-display text-base font-semibold text-neutral-950"
         >
-          Project inquiries
+          <T>Project inquiries</T>
         </h2>
         <div className="isolate mt-6 -space-y-px rounded-2xl bg-white/50">
           <TextInput
             ref={setFieldRef('name')}
-            label="Name"
+            label={gt('Name')}
             name="name"
             autoComplete="name"
             required
@@ -292,7 +297,7 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
           />
           <TextInput
             ref={setFieldRef('email')}
-            label="Email"
+            label={gt('Email')}
             type="email"
             name="email"
             autoComplete="email"
@@ -305,7 +310,7 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
           />
           <TextInput
             ref={setFieldRef('company')}
-            label="Company"
+            label={gt('Company')}
             name="company"
             autoComplete="organization"
             required
@@ -317,13 +322,15 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
           />
           <TextInput
             ref={setFieldRef('phone')}
-            label="Phone"
+            label={gt('Phone')}
             type="tel"
             name="phone"
             autoComplete="tel"
             inputMode="tel"
             required
-            title="10–15 digits; you may use +, spaces, dashes, and parentheses."
+            title={gt(
+              '10–15 digits; you may use +, spaces, dashes, and parentheses.',
+            )}
             value={fields.phone}
             error={fieldErrors?.phone}
             onChange={(e) =>
@@ -332,7 +339,7 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
           />
           <Textarea
             ref={setFieldRef('message')}
-            label="Message"
+            label={gt('Message')}
             name="message"
             autoComplete="off"
             required
@@ -357,7 +364,9 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
                 fieldErrors?.budget ? 'contact-budget-error' : undefined
               }
             >
-              <legend className="text-base/6 text-neutral-500">Budget</legend>
+              <legend className="text-base/6 text-neutral-500">
+                <T>Budget</T>
+              </legend>
               <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
                 <RadioInput
                   label="$25K – $50K"
@@ -382,7 +391,7 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
                   onChange={() => setFields((f) => ({ ...f, budget: '100' }))}
                 />
                 <RadioInput
-                  label="More than $150K"
+                  label={gt('More than $150K')}
                   name="budget"
                   value="150"
                   checked={fields.budget === '150'}
@@ -402,7 +411,7 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
           </div>
         </div>
         <Button type="submit" className="mt-10" disabled={isPending}>
-          {isPending ? 'Sending…' : 'Let’s work together'}
+          {isPending ? gt('Sending…') : gt('Let’s work together')}
         </Button>
       </fieldset>
 
