@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "next build --webpack",
+    "build": "gt translate && next build --webpack",
     "start": "next start",
     "lint": "next lint",
     "email:dev": "email dev --dir ./emails"
@@ -24,6 +24,7 @@
     "escape-string-regexp": "^5.0.0",
     "fast-glob": "^3.3.3",
     "framer-motion": "^12.23.11",
+    "gt-next": "^6.16.7",
     "next": "16.1.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -45,6 +46,7 @@
     "@types/react-dom": "19.2.3",
     "eslint": "^9.32.0",
     "eslint-config-next": "16.1.6",
+    "gt": "^2.14.17",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "react-email": "^6.0.0",

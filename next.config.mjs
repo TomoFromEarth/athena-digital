@@ -3,6 +3,7 @@ import nextMDX from '@next/mdx'
 import { Parser } from 'acorn'
 import jsx from 'acorn-jsx'
 import escapeStringRegexp from 'escape-string-regexp'
+import { withGTConfig } from 'gt-next/config'
 import * as path from 'path'
 import { recmaImportImages } from 'recma-import-images'
 import remarkGfm from 'remark-gfm'
@@ -79,5 +80,5 @@ export default async function config() {
     },
   })
 
-  return withMDX(nextConfig)
+  return withGTConfig(withMDX(nextConfig))
 }
