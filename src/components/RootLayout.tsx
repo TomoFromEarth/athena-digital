@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { motion, MotionConfig, useReducedMotion } from 'framer-motion'
+import { T, useGT } from 'gt-next/client'
 
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
@@ -59,13 +60,14 @@ function Header({
   invert?: boolean
 }) {
   let { logoHovered, setLogoHovered } = useContext(RootLayoutContext)!
+  let gt = useGT()
 
   return (
     <Container>
       <div className="flex items-center justify-between">
         <Link
           href="/"
-          aria-label="Home"
+          aria-label={gt('Home')}
           onMouseEnter={() => setLogoHovered(true)}
           onMouseLeave={() => setLogoHovered(false)}
         >
@@ -82,7 +84,7 @@ function Header({
         </Link>
         <div className="flex items-center gap-x-8">
           <Button href="/contact" invert={invert}>
-            Start a project
+            <T>Start a project</T>
           </Button>
           <button
             ref={toggleRef}
@@ -94,7 +96,7 @@ function Header({
               'group -m-2.5 rounded-full p-2.5 transition',
               invert ? 'hover:bg-white/10' : 'hover:bg-neutral-950/10',
             )}
-            aria-label="Toggle navigation"
+            aria-label={gt('Toggle navigation')}
           >
             <Icon
               className={clsx(
@@ -143,12 +145,20 @@ function Navigation() {
   return (
     <nav className="mt-px font-display text-5xl font-medium tracking-tight text-white">
       <NavigationRow>
-        <NavigationItem href="/work">Work</NavigationItem>
-        <NavigationItem href="/about">About</NavigationItem>
+        <NavigationItem href="/work">
+          <T>Work</T>
+        </NavigationItem>
+        <NavigationItem href="/about">
+          <T>About</T>
+        </NavigationItem>
       </NavigationRow>
       <NavigationRow>
-        <NavigationItem href="/process">Process</NavigationItem>
-        <NavigationItem href="/blog">Journal</NavigationItem>
+        <NavigationItem href="/process">
+          <T>Process</T>
+        </NavigationItem>
+        <NavigationItem href="/blog">
+          <T>Journal</T>
+        </NavigationItem>
       </NavigationRow>
     </nav>
   )
@@ -239,7 +249,7 @@ function RootLayoutInner({ children }: { children: React.ReactNode }) {
                 <div className="grid grid-cols-1 gap-y-10 pt-10 pb-16 sm:grid-cols-2 sm:pt-16">
                   <div>
                     <h2 className="font-display text-base font-semibold text-white">
-                      Where we work
+                      <T>Where we work</T>
                     </h2>
                     <Offices
                       invert
@@ -248,7 +258,7 @@ function RootLayoutInner({ children }: { children: React.ReactNode }) {
                   </div>
                   <div className="sm:border-l sm:border-transparent sm:pl-16">
                     <h2 className="font-display text-base font-semibold text-white">
-                      Follow Athena Digital
+                      <T>Follow Athena Digital</T>
                     </h2>
                     <SocialMedia className="mt-6" invert />
                   </div>
