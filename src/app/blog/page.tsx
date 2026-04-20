@@ -14,10 +14,14 @@ import { RootLayout } from '@/components/RootLayout'
 import { formatDate } from '@/lib/formatDate'
 import { loadArticles } from '@/lib/mdx'
 
-export const metadata: Metadata = {
-  title: 'Blog',
-  description:
-    'Notes from Athena Digital on content, community, and showing up online with intention.',
+export async function generateMetadata(): Promise<Metadata> {
+  const gt = await getGT()
+  return {
+    title: gt('Blog'),
+    description: gt(
+      'Notes from Athena Digital on content, community, and showing up online with intention.',
+    ),
+  }
 }
 
 export default async function Blog() {

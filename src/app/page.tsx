@@ -197,9 +197,13 @@ function Services() {
   )
 }
 
-export const metadata: Metadata = {
-  description:
-    'Athena Digital is a boutique remote studio for content creation, posting, community management, and trend research.',
+export async function generateMetadata(): Promise<Metadata> {
+  const gt = await getGT()
+  return {
+    description: gt(
+      'Athena Digital is a boutique remote studio for content creation, posting, community management, and trend research.',
+    ),
+  }
 }
 
 export default async function Home() {

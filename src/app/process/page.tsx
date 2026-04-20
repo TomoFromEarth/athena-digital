@@ -1,5 +1,6 @@
 import { type Metadata } from 'next'
 import { T } from 'gt-next'
+import { getGT } from 'gt-next/server'
 
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
@@ -308,10 +309,14 @@ function Values() {
   )
 }
 
-export const metadata: Metadata = {
-  title: 'Our Process',
-  description:
-    'How Athena Digital discovers your goals, creates content and calendars, and delivers publishing and community support for creators and brands.',
+export async function generateMetadata(): Promise<Metadata> {
+  const gt = await getGT()
+  return {
+    title: gt('Our Process'),
+    description: gt(
+      'How Athena Digital discovers your goals, creates content and calendars, and delivers publishing and community support for creators and brands.',
+    ),
+  }
 }
 
 export default function Process() {

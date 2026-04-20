@@ -101,10 +101,14 @@ async function CaseStudies({
   )
 }
 
-export const metadata: Metadata = {
-  title: 'Our Work',
-  description:
-    'Lean spotlights from Athena Digital—real collaborations in content, posting, and community for creators and brands.',
+export async function generateMetadata(): Promise<Metadata> {
+  const gt = await getGT()
+  return {
+    title: gt('Our Work'),
+    description: gt(
+      'Lean spotlights from Athena Digital—real collaborations in content, posting, and community for creators and brands.',
+    ),
+  }
 }
 
 export default async function Work() {

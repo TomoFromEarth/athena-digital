@@ -1,6 +1,7 @@
 import { type Metadata } from 'next'
 import Link from 'next/link'
 import { T } from 'gt-next'
+import { getGT } from 'gt-next/server'
 
 import { Border } from '@/components/Border'
 import { Container } from '@/components/Container'
@@ -58,10 +59,14 @@ function ContactDetails() {
   )
 }
 
-export const metadata: Metadata = {
-  title: 'Contact',
-  description:
-    'Get in touch with Athena Digital for content creation, community management, and trend research support.',
+export async function generateMetadata(): Promise<Metadata> {
+  const gt = await getGT()
+  return {
+    title: gt('Contact'),
+    description: gt(
+      'Get in touch with Athena Digital for content creation, community management, and trend research support.',
+    ),
+  }
 }
 
 export default function Contact() {

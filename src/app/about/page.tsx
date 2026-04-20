@@ -1,6 +1,7 @@
 import { type Metadata } from 'next'
 import Image from 'next/image'
 import { T } from 'gt-next'
+import { getGT } from 'gt-next/server'
 
 import { Border } from '@/components/Border'
 import { ContactSection } from '@/components/ContactSection'
@@ -115,10 +116,14 @@ function StudioTeam() {
   )
 }
 
-export const metadata: Metadata = {
-  title: 'About Us',
-  description:
-    'Athena Digital is a boutique remote studio for content, posting, community, and trend-aware creative support.',
+export async function generateMetadata(): Promise<Metadata> {
+  const gt = await getGT()
+  return {
+    title: gt('About Us'),
+    description: gt(
+      'Athena Digital is a boutique remote studio for content, posting, community, and trend-aware creative support.',
+    ),
+  }
 }
 
 export default async function About() {
