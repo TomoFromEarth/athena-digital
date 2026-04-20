@@ -2,6 +2,8 @@ import { type Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import clsx from 'clsx'
+import { T } from 'gt-next'
+import { getGT } from 'gt-next/server'
 
 import { Blockquote } from '@/components/Blockquote'
 import { Border } from '@/components/Border'
@@ -14,16 +16,17 @@ import { RootLayout } from '@/components/RootLayout'
 import { formatDate } from '@/lib/formatDate'
 import { type CaseStudy, type MDXEntry, loadCaseStudies } from '@/lib/mdx'
 
-function CaseStudies({
+async function CaseStudies({
   caseStudies,
 }: {
   caseStudies: Array<MDXEntry<CaseStudy>>
 }) {
+  const gt = await getGT()
   return (
     <Container className="mt-40">
       <FadeIn>
         <h2 className="font-display text-2xl font-semibold text-neutral-950">
-          Spotlights
+          <T>Spotlights</T>
         </h2>
       </FadeIn>
       <div className="mt-10 space-y-20 sm:space-y-24 lg:space-y-32">
@@ -75,9 +78,11 @@ function CaseStudies({
                   <div className="mt-8 flex">
                     <Button
                       href={caseStudy.href}
-                      aria-label={`Read spotlight: ${caseStudy.client}`}
+                      aria-label={gt('Read spotlight: {client}', {
+                        client: caseStudy.client,
+                      })}
                     >
-                      Read spotlight
+                      <T>Read spotlight</T>
                     </Button>
                   </div>
                   <Blockquote
@@ -108,18 +113,22 @@ export default async function Work() {
   return (
     <RootLayout>
       <PageIntro
-        eyebrow="Our work"
-        title="Real collaborations, told without invented case studies."
+        eyebrow={<T>Our work</T>}
+        title={
+          <T>Real collaborations, told without invented case studies.</T>
+        }
       >
         <p>
-          Athena Digital does not pad this page with fictional brands. What you
-          see here are{' '}
-          <strong className="font-semibold text-neutral-950">
-            spotlights we can stand behind
-          </strong>
-          —honest snapshots of how the studio partners with creators and teams on
-          content, posting, and community. More will appear as new work is ready
-          to share.
+          <T>
+            Athena Digital does not pad this page with fictional brands. What
+            you see here are{' '}
+            <strong className="font-semibold text-neutral-950">
+              spotlights we can stand behind
+            </strong>
+            —honest snapshots of how the studio partners with creators and
+            teams on content, posting, and community. More will appear as new
+            work is ready to share.
+          </T>
         </p>
       </PageIntro>
 

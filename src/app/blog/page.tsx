@@ -1,6 +1,8 @@
 import { type Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import { T } from 'gt-next'
+import { getGT } from 'gt-next/server'
 
 import { Border } from '@/components/Border'
 import { Button } from '@/components/Button'
@@ -20,14 +22,20 @@ export const metadata: Metadata = {
 
 export default async function Blog() {
   let articles = await loadArticles()
+  const gt = await getGT()
 
   return (
     <RootLayout>
-      <PageIntro eyebrow="Blog" title="Notes on content, community, and culture">
+      <PageIntro
+        eyebrow={<T>Blog</T>}
+        title={<T>Notes on content, community, and culture</T>}
+      >
         <p>
-          Short articles from Athena Digital on what we are learning alongside
-          creators and brands—how to plan, post, listen, and stay culturally
-          aware without burning out or sounding generic.
+          <T>
+            Short articles from Athena Digital on what we are learning
+            alongside creators and brands—how to plan, post, listen, and stay
+            culturally aware without burning out or sounding generic.
+          </T>
         </p>
       </PageIntro>
 
@@ -43,13 +51,17 @@ export default async function Blog() {
                         <Link href={article.href}>{article.title}</Link>
                       </h2>
                       <dl className="lg:absolute lg:top-0 lg:left-0 lg:w-1/3 lg:px-4">
-                        <dt className="sr-only">Published</dt>
+                        <dt className="sr-only">
+                          <T>Published</T>
+                        </dt>
                         <dd className="absolute top-0 left-0 text-sm text-neutral-950 lg:static">
                           <time dateTime={article.date}>
                             {formatDate(article.date)}
                           </time>
                         </dd>
-                        <dt className="sr-only">Author</dt>
+                        <dt className="sr-only">
+                          <T>Author</T>
+                        </dt>
                         <dd className="mt-6 flex gap-x-4">
                           <div className="flex-none overflow-hidden rounded-xl bg-neutral-100">
                             <Image
@@ -71,10 +83,12 @@ export default async function Blog() {
                       </p>
                       <Button
                         href={article.href}
-                        aria-label={`Read more: ${article.title}`}
+                        aria-label={gt('Read more: {title}', {
+                          title: article.title,
+                        })}
                         className="mt-8"
                       >
-                        Read more
+                        <T>Read more</T>
                       </Button>
                     </div>
                   </div>
