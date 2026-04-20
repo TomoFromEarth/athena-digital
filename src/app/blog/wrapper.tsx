@@ -1,5 +1,5 @@
 import { T } from 'gt-next'
-import { getLocale } from 'gt-next/server'
+import { getGT } from 'gt-next/server'
 
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
@@ -17,11 +17,16 @@ export default async function BlogArticleWrapper({
   article: MDXEntry<Article>
   children: React.ReactNode
 }) {
-  const locale = await getLocale()
-  let allArticles = await loadArticles(locale)
+  const gt = await getGT()
+  let allArticles = await loadArticles()
   let moreArticles = allArticles
     .filter(({ metadata }) => metadata.date !== article.date)
     .slice(0, 2)
+    .map((a) => ({
+      ...a,
+      title: gt(a.title),
+      description: gt(a.description),
+    }))
 
   return (
     <RootLayout>
@@ -29,7 +34,7 @@ export default async function BlogArticleWrapper({
         <FadeIn>
           <header className="mx-auto flex max-w-5xl flex-col text-center">
             <h1 className="mt-6 font-display text-5xl font-medium tracking-tight text-balance text-neutral-950 sm:text-6xl">
-              {article.title}
+              {gt(article.title)}
             </h1>
             <time
               dateTime={article.date}
@@ -38,7 +43,7 @@ export default async function BlogArticleWrapper({
               {formatDate(article.date)}
             </time>
             <p className="mt-6 text-sm font-semibold text-neutral-950">
-              {article.author.name} · {article.author.role}
+              {article.author.name} · {gt(article.author.role)}
             </p>
           </header>
         </FadeIn>

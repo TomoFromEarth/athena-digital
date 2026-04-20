@@ -1,7 +1,7 @@
 import { type Metadata } from 'next'
 import Image from 'next/image'
 import { T } from 'gt-next'
-import { getGT, getLocale } from 'gt-next/server'
+import { getGT } from 'gt-next/server'
 
 import { Border } from '@/components/Border'
 import { ContactSection } from '@/components/ContactSection'
@@ -127,8 +127,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function About() {
-  const locale = await getLocale()
-  let blogArticles = (await loadArticles(locale)).slice(0, 2)
+  const gt = await getGT()
+  let blogArticles = (await loadArticles()).slice(0, 2).map((a) => ({
+    ...a,
+    title: gt(a.title),
+    description: gt(a.description),
+  }))
 
   return (
     <RootLayout>

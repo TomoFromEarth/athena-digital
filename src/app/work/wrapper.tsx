@@ -1,6 +1,7 @@
 import { T } from 'gt-next'
-import { getLocale } from 'gt-next/server'
+import { getGT } from 'gt-next/server'
 
+import { Blockquote } from '@/components/Blockquote'
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
@@ -18,8 +19,8 @@ export default async function CaseStudyLayout({
   caseStudy: MDXEntry<CaseStudy>
   children: React.ReactNode
 }) {
-  const locale = await getLocale()
-  let allCaseStudies = await loadCaseStudies(locale)
+  const gt = await getGT()
+  let allCaseStudies = await loadCaseStudies()
   let moreCaseStudies = allCaseStudies
     .filter(
       ({ metadata }) =>
@@ -29,6 +30,11 @@ export default async function CaseStudyLayout({
         ),
     )
     .slice(0, 2)
+    .map((cs) => ({
+      ...cs,
+      title: gt(cs.title),
+      description: gt(cs.description),
+    }))
 
   return (
     <RootLayout>
@@ -36,10 +42,10 @@ export default async function CaseStudyLayout({
         <header>
           <PageIntro
             eyebrow={<T>Work spotlight</T>}
-            title={caseStudy.title}
+            title={gt(caseStudy.title)}
             centered
           >
-            <p>{caseStudy.description}</p>
+            <p>{gt(caseStudy.description)}</p>
           </PageIntro>
 
           <FadeIn>
@@ -67,7 +73,7 @@ export default async function CaseStudyLayout({
                       <dt className="font-semibold">
                         <T>Service</T>
                       </dt>
-                      <dd>{caseStudy.service}</dd>
+                      <dd>{gt(caseStudy.service)}</dd>
                     </div>
                   </dl>
                 </div>
@@ -97,6 +103,21 @@ export default async function CaseStudyLayout({
             <MDXComponents.wrapper>{children}</MDXComponents.wrapper>
           </FadeIn>
         </Container>
+
+        {caseStudy.testimonial?.content && (
+          <Container className="mt-24 sm:mt-32 lg:mt-40">
+            <FadeIn>
+              <Blockquote
+                author={{
+                  name: caseStudy.testimonial.author.name,
+                  role: gt(caseStudy.testimonial.author.role),
+                }}
+              >
+                {gt(caseStudy.testimonial.content)}
+              </Blockquote>
+            </FadeIn>
+          </Container>
+        )}
       </article>
 
       {moreCaseStudies.length > 0 && (

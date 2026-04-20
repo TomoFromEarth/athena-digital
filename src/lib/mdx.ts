@@ -1,30 +1,24 @@
+import 'server-only'
+
 import { type ImageProps } from 'next/image'
 import glob from 'fast-glob'
 
-const CONTENT_FILENAME_RE = /\/content\.en\.mdx$/
+const DATA_FILENAME_RE = /\/data\.(ts|tsx)$/
 
 async function loadEntries<T extends { date: string }>(
   directory: string,
   metaName: string,
-  locale: string,
 ): Promise<Array<MDXEntry<T>>> {
-  const sourceFiles = await glob('**/content.en.mdx', {
+  const sourceFiles = await glob('**/data.{ts,tsx}', {
     cwd: `src/app/${directory}`,
   })
   return (
     await Promise.all(
-      sourceFiles.map(async (enFilename) => {
-        const slugDir = enFilename.replace(CONTENT_FILENAME_RE, '')
-        let mod: Record<string, unknown>
-        try {
-          mod = (await import(
-            `../app/${directory}/${slugDir}/content.${locale}.mdx`
-          )) as Record<string, unknown>
-        } catch {
-          mod = (await import(
-            `../app/${directory}/${slugDir}/content.en.mdx`
-          )) as Record<string, unknown>
-        }
+      sourceFiles.map(async (filename) => {
+        const slugDir = filename.replace(DATA_FILENAME_RE, '')
+        const mod = (await import(
+          `../app/${directory}/${slugDir}/data`
+        )) as Record<string, unknown>
         const metadata = mod[metaName] as T
         return {
           ...metadata,
@@ -70,10 +64,10 @@ export interface CaseStudy {
   }
 }
 
-export function loadArticles(locale: string) {
-  return loadEntries<Article>('blog', 'article', locale)
+export function loadArticles() {
+  return loadEntries<Article>('blog', 'article')
 }
 
-export function loadCaseStudies(locale: string) {
-  return loadEntries<CaseStudy>('work', 'caseStudy', locale)
+export function loadCaseStudies() {
+  return loadEntries<CaseStudy>('work', 'caseStudy')
 }
