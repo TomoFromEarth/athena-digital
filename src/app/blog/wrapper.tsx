@@ -1,3 +1,6 @@
+import { T } from 'gt-next'
+import { getLocale } from 'gt-next/server'
+
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
@@ -14,9 +17,10 @@ export default async function BlogArticleWrapper({
   article: MDXEntry<Article>
   children: React.ReactNode
 }) {
-  let allArticles = await loadArticles()
+  const locale = await getLocale()
+  let allArticles = await loadArticles(locale)
   let moreArticles = allArticles
-    .filter(({ metadata }) => metadata !== article)
+    .filter(({ metadata }) => metadata.date !== article.date)
     .slice(0, 2)
 
   return (
@@ -49,7 +53,7 @@ export default async function BlogArticleWrapper({
       {moreArticles.length > 0 && (
         <PageLinks
           className="mt-24 sm:mt-32 lg:mt-40"
-          title="More from the blog"
+          title={<T>More from the blog</T>}
           pages={moreArticles}
         />
       )}

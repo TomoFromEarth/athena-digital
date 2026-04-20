@@ -1,24 +1,37 @@
 import { type ImageProps } from 'next/image'
 import glob from 'fast-glob'
 
+const CONTENT_FILENAME_RE = /\/content\.en\.mdx$/
+
 async function loadEntries<T extends { date: string }>(
   directory: string,
   metaName: string,
+  locale: string,
 ): Promise<Array<MDXEntry<T>>> {
+  const sourceFiles = await glob('**/content.en.mdx', {
+    cwd: `src/app/${directory}`,
+  })
   return (
     await Promise.all(
-      (await glob('**/page.mdx', { cwd: `src/app/${directory}` })).map(
-        async (filename) => {
-          let metadata = (await import(`../app/${directory}/${filename}`))[
-            metaName
-          ] as T
-          return {
-            ...metadata,
-            metadata,
-            href: `/${directory}/${filename.replace(/\/page\.mdx$/, '')}`,
-          }
-        },
-      ),
+      sourceFiles.map(async (enFilename) => {
+        const slugDir = enFilename.replace(CONTENT_FILENAME_RE, '')
+        let mod: Record<string, unknown>
+        try {
+          mod = (await import(
+            `../app/${directory}/${slugDir}/content.${locale}.mdx`
+          )) as Record<string, unknown>
+        } catch {
+          mod = (await import(
+            `../app/${directory}/${slugDir}/content.en.mdx`
+          )) as Record<string, unknown>
+        }
+        const metadata = mod[metaName] as T
+        return {
+          ...metadata,
+          metadata,
+          href: `/${directory}/${slugDir}`,
+        }
+      }),
     )
   ).sort((a, b) => b.date.localeCompare(a.date))
 }
@@ -57,10 +70,10 @@ export interface CaseStudy {
   }
 }
 
-export function loadArticles() {
-  return loadEntries<Article>('blog', 'article')
+export function loadArticles(locale: string) {
+  return loadEntries<Article>('blog', 'article', locale)
 }
 
-export function loadCaseStudies() {
-  return loadEntries<CaseStudy>('work', 'caseStudy')
+export function loadCaseStudies(locale: string) {
+  return loadEntries<CaseStudy>('work', 'caseStudy', locale)
 }

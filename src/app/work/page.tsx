@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import clsx from 'clsx'
 import { T } from 'gt-next'
-import { getGT } from 'gt-next/server'
+import { getGT, getLocale } from 'gt-next/server'
 
 import { Blockquote } from '@/components/Blockquote'
 import { Border } from '@/components/Border'
@@ -112,7 +112,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Work() {
-  let caseStudies = await loadCaseStudies()
+  const locale = await getLocale()
+  let caseStudies = await loadCaseStudies(locale)
 
   return (
     <RootLayout>
