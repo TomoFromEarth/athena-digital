@@ -14,8 +14,8 @@ export function SectionIntro({
   React.ComponentPropsWithoutRef<typeof Container>,
   'title' | 'children'
 > & {
-  title: string
-  eyebrow?: string
+  title: React.ReactNode
+  eyebrow?: React.ReactNode
   children?: React.ReactNode
   smaller?: boolean
   invert?: boolean

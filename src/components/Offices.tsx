@@ -1,11 +1,12 @@
 import clsx from 'clsx'
+import { T } from 'gt-next'
 
 function Office({
   name,
   children,
   invert = false,
 }: {
-  name: string
+  name: React.ReactNode
   children: React.ReactNode
   invert?: boolean
 }) {
@@ -32,8 +33,8 @@ export function Offices({
   return (
     <ul role="list" {...props}>
       <li>
-        <Office name="Remote studio" invert={invert}>
-          Serving clients remotely
+        <Office name={<T>Remote studio</T>} invert={invert}>
+          <T>Serving clients remotely</T>
         </Office>
       </li>
     </ul>
