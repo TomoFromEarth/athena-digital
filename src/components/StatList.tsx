@@ -20,8 +20,8 @@ export function StatListItem({
   label,
   value,
 }: {
-  label: string
-  value: string
+  label: React.ReactNode
+  value: React.ReactNode
 }) {
   return (
     <Border as={FadeIn} position="left" className="flex flex-col-reverse pl-8">

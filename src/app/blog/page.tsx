@@ -1,6 +1,8 @@
 import { type Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import { T } from 'gt-next'
+import { getGT } from 'gt-next/server'
 
 import { Border } from '@/components/Border'
 import { Button } from '@/components/Button'
@@ -12,22 +14,32 @@ import { RootLayout } from '@/components/RootLayout'
 import { formatDate } from '@/lib/formatDate'
 import { loadArticles } from '@/lib/mdx'
 
-export const metadata: Metadata = {
-  title: 'Blog',
-  description:
-    'Notes from Athena Digital on content, community, and showing up online with intention.',
+export async function generateMetadata(): Promise<Metadata> {
+  const gt = await getGT()
+  return {
+    title: gt('Blog'),
+    description: gt(
+      'Notes from Athena Digital on content, community, and showing up online with intention.',
+    ),
+  }
 }
 
 export default async function Blog() {
   let articles = await loadArticles()
+  const gt = await getGT()
 
   return (
     <RootLayout>
-      <PageIntro eyebrow="Blog" title="Notes on content, community, and culture">
+      <PageIntro
+        eyebrow={<T>Blog</T>}
+        title={<T>Notes on content, community, and culture</T>}
+      >
         <p>
-          Short articles from Athena Digital on what we are learning alongside
-          creators and brands—how to plan, post, listen, and stay culturally
-          aware without burning out or sounding generic.
+          <T>
+            Short articles from Athena Digital on what we are learning
+            alongside creators and brands—how to plan, post, listen, and stay
+            culturally aware without burning out or sounding generic.
+          </T>
         </p>
       </PageIntro>
 
@@ -40,16 +52,20 @@ export default async function Blog() {
                   <div className="relative lg:-mx-4 lg:flex lg:justify-end">
                     <div className="pt-10 lg:w-2/3 lg:flex-none lg:px-4 lg:pt-0">
                       <h2 className="font-display text-2xl font-semibold text-neutral-950">
-                        <Link href={article.href}>{article.title}</Link>
+                        <Link href={article.href}>{gt(article.title)}</Link>
                       </h2>
                       <dl className="lg:absolute lg:top-0 lg:left-0 lg:w-1/3 lg:px-4">
-                        <dt className="sr-only">Published</dt>
+                        <dt className="sr-only">
+                          <T>Published</T>
+                        </dt>
                         <dd className="absolute top-0 left-0 text-sm text-neutral-950 lg:static">
                           <time dateTime={article.date}>
                             {formatDate(article.date)}
                           </time>
                         </dd>
-                        <dt className="sr-only">Author</dt>
+                        <dt className="sr-only">
+                          <T>Author</T>
+                        </dt>
                         <dd className="mt-6 flex gap-x-4">
                           <div className="flex-none overflow-hidden rounded-xl bg-neutral-100">
                             <Image
@@ -62,19 +78,21 @@ export default async function Blog() {
                             <div className="font-semibold">
                               {article.author.name}
                             </div>
-                            <div>{article.author.role}</div>
+                            <div>{gt(article.author.role)}</div>
                           </div>
                         </dd>
                       </dl>
                       <p className="mt-6 max-w-2xl text-base text-neutral-600">
-                        {article.description}
+                        {gt(article.description)}
                       </p>
                       <Button
                         href={article.href}
-                        aria-label={`Read more: ${article.title}`}
+                        aria-label={gt('Read more: {title}', {
+                          title: gt(article.title),
+                        })}
                         className="mt-8"
                       >
-                        Read more
+                        <T>Read more</T>
                       </Button>
                     </div>
                   </div>

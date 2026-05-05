@@ -1,4 +1,5 @@
 import { Resend } from 'resend'
+import { msg } from 'gt-next'
 
 import { ContactInquiryEmail } from '@emails/templates/ContactInquiryEmail'
 import type { ContactInquiryPayload } from '@/lib/contact/inquiry-types'
@@ -51,8 +52,9 @@ export async function sendContactInquiryEmail(
       return {
         ok: false,
         reason: 'send_failed',
-        userMessage:
+        userMessage: msg(
           'We could not deliver your message yet (email is still in test mode). Please email julia@athenadigital.me directly.',
+        ),
       }
     }
 

@@ -3,10 +3,7 @@ import { Section, Text } from '@react-email/components'
 import { AthenaDetailRow } from '../components/AthenaDetailRow'
 import { athenaEmailTheme } from '../components/AthenaEmailTheme'
 import { AthenaEmailLayout } from '../components/AthenaEmailLayout'
-import {
-  BUDGET_LABELS,
-  type ContactInquiryPayload,
-} from '@/lib/contact/inquiry-types'
+import { type ContactInquiryPayload } from '@/lib/contact/inquiry-types'
 
 export type ContactInquiryEmailProps = ContactInquiryPayload
 
@@ -15,15 +12,12 @@ export function ContactInquiryEmail(props: ContactInquiryEmailProps) {
   const previewLine = `New inquiry from ${name}`
 
   return (
-    <AthenaEmailLayout
-      inboxPreview={previewLine}
-      heading="New contact inquiry"
-    >
+    <AthenaEmailLayout inboxPreview={previewLine} heading="New contact inquiry">
       <AthenaDetailRow label="Name" value={name} />
       <AthenaDetailRow label="Email" value={email} />
       <AthenaDetailRow label="Company" value={company} />
       <AthenaDetailRow label="Phone" value={phone} />
-      <AthenaDetailRow label="Budget" value={BUDGET_LABELS[budget]} />
+      <AthenaDetailRow label="Budget" value={budget} />
 
       <Section style={{ marginTop: athenaEmailTheme.spacing.section }}>
         <Text

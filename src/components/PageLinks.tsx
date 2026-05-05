@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import clsx from 'clsx'
+import { T } from 'gt-next'
+import { getGT } from 'gt-next/server'
 
 import { Border } from '@/components/Border'
 import { Container } from '@/components/Container'
@@ -27,7 +29,8 @@ interface Page {
   description: string
 }
 
-function PageLink({ page }: { page: Page }) {
+async function PageLink({ page }: { page: Page }) {
+  const gt = await getGT()
   return (
     <article key={page.href}>
       <Border
@@ -47,9 +50,9 @@ function PageLink({ page }: { page: Page }) {
         <Link
           href={page.href}
           className="mt-6 flex gap-x-3 text-base font-semibold text-neutral-950 transition hover:text-neutral-700"
-          aria-label={`Read more: ${page.title}`}
+          aria-label={gt('Read more: {title}', { title: page.title })}
         >
-          Read more
+          <T>Read more</T>
           <ArrowIcon className="w-6 flex-none fill-current" />
           <span className="absolute inset-0" />
         </Link>
@@ -64,14 +67,14 @@ export function PageLinks({
   intro,
   className,
 }: {
-  title: string
+  title: React.ReactNode
   pages: Array<Page>
-  intro?: string
+  intro?: React.ReactNode
   className?: string
 }) {
   return (
     <div className={clsx('relative pt-24 sm:pt-32 lg:pt-40', className)}>
-      <div className="absolute inset-x-0 top-0 -z-10 h-[884px] overflow-hidden rounded-t-4xl bg-linear-to-b from-neutral-50">
+      <div className="absolute inset-x-0 top-0 -z-10 h-221 overflow-hidden rounded-t-4xl bg-linear-to-b from-neutral-50">
         <GridPattern
           className="absolute inset-0 h-full w-full mask-[linear-gradient(to_bottom_left,white_40%,transparent_50%)] fill-neutral-100 stroke-neutral-950/5"
           yOffset={-270}

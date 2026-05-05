@@ -1,24 +1,31 @@
+import 'server-only'
+
 import { type ImageProps } from 'next/image'
 import glob from 'fast-glob'
+
+const DATA_FILENAME_RE = /\/data\.(ts|tsx)$/
 
 async function loadEntries<T extends { date: string }>(
   directory: string,
   metaName: string,
 ): Promise<Array<MDXEntry<T>>> {
+  const sourceFiles = await glob('**/data.{ts,tsx}', {
+    cwd: `src/app/${directory}`,
+  })
   return (
     await Promise.all(
-      (await glob('**/page.mdx', { cwd: `src/app/${directory}` })).map(
-        async (filename) => {
-          let metadata = (await import(`../app/${directory}/${filename}`))[
-            metaName
-          ] as T
-          return {
-            ...metadata,
-            metadata,
-            href: `/${directory}/${filename.replace(/\/page\.mdx$/, '')}`,
-          }
-        },
-      ),
+      sourceFiles.map(async (filename) => {
+        const slugDir = filename.replace(DATA_FILENAME_RE, '')
+        const mod = (await import(
+          `../app/${directory}/${slugDir}/data`
+        )) as Record<string, unknown>
+        const metadata = mod[metaName] as T
+        return {
+          ...metadata,
+          metadata,
+          href: `/${directory}/${slugDir}`,
+        }
+      }),
     )
   ).sort((a, b) => b.date.localeCompare(a.date))
 }

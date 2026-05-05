@@ -1,3 +1,5 @@
+import { T } from 'gt-next'
+
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
@@ -10,16 +12,16 @@ export function ContactSection() {
         <div className="mx-auto max-w-4xl">
           <div className="max-w-xl">
             <h2 className="font-display text-3xl font-medium text-balance text-white sm:text-4xl">
-              Need support with content and community?
+              <T>Need support with content and community?</T>
             </h2>
             <div className="mt-6 flex">
               <Button href="/contact" invert>
-                Get in touch
+                <T>Get in touch</T>
               </Button>
             </div>
             <div className="mt-10 border-t border-white/10 pt-10">
               <h3 className="font-display text-base font-semibold text-white">
-                Where we work
+                <T>Where we work</T>
               </h3>
               <Offices
                 invert

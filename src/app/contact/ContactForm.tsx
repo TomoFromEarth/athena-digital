@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from 'react'
+import { T, useGT } from 'gt-next/client'
 
 import { Button } from '@/components/Button'
 import { FadeIn } from '@/components/FadeIn'
@@ -18,15 +19,13 @@ import {
   submitContactInquiry,
 } from '@/app/contact/actions'
 
-type BudgetValue = '25' | '50' | '100' | '150'
-
 type FormFields = {
   name: string
   email: string
   company: string
   phone: string
   message: string
-  budget: BudgetValue | ''
+  budget: string
 }
 
 const emptyFields: FormFields = {
@@ -47,7 +46,7 @@ const FIELD_FOCUS_ORDER: ContactFormFieldKey[] = [
   'budget',
 ]
 
-type TextFieldKey = Exclude<ContactFormFieldKey, 'budget'>
+type TextFieldKey = ContactFormFieldKey
 
 const TextInput = forwardRef<
   HTMLInputElement,
@@ -132,22 +131,6 @@ const Textarea = forwardRef<
   )
 })
 
-function RadioInput({
-  label,
-  ...props
-}: React.ComponentPropsWithoutRef<'input'> & { label: string }) {
-  return (
-    <label className="flex gap-x-3">
-      <input
-        type="radio"
-        {...props}
-        className="h-6 w-6 flex-none appearance-none rounded-full border border-neutral-950/20 outline-hidden checked:border-8 checked:border-neutral-950 focus-visible:ring-1 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:opacity-60"
-      />
-      <span className="text-base/6 text-neutral-950">{label}</span>
-    </label>
-  )
-}
-
 const contactInitialState: ContactActionState = { status: 'idle' }
 
 function ContactFormImpl({ onReset }: { onReset: () => void }) {
@@ -159,9 +142,7 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
   )
 
   const fieldRefs = useRef<
-    Partial<
-      Record<TextFieldKey, HTMLInputElement | HTMLTextAreaElement | null>
-    >
+    Partial<Record<TextFieldKey, HTMLInputElement | HTMLTextAreaElement | null>>
   >({})
   const budgetSectionRef = useRef<HTMLDivElement>(null)
   const feedbackRef = useRef<HTMLDivElement>(null)
@@ -184,14 +165,6 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
       for (const key of FIELD_FOCUS_ORDER) {
         if (!fieldErrors[key]) {
           continue
-        }
-        if (key === 'budget') {
-          const section = budgetSectionRef.current
-          section?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-          section
-            ?.querySelector<HTMLInputElement>('input[name="budget"]')
-            ?.focus()
-          return
         }
         const el = fieldRefs.current[key]
         el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -230,25 +203,29 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
         className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm ring-1 ring-neutral-950/5"
       >
         <p className="font-display text-lg font-semibold text-neutral-950">
-          Thanks — we received your inquiry
+          <T>Thanks — we received your inquiry</T>
         </p>
         <p className="mt-3 text-base leading-relaxed text-neutral-600">
-          Athena Digital will follow up by email. If you need anything else in
-          the meantime, you can reach us at{' '}
-          <a
-            href="mailto:julia@athenadigital.me"
-            className="font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-950"
-          >
-            julia@athenadigital.me
-          </a>
-          .
+          <T>
+            Athena Digital will follow up by email. If you need anything else in
+            the meantime, you can reach us at{' '}
+            <a
+              href="mailto:julia@athenadigital.me"
+              className="font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-950"
+            >
+              julia@athenadigital.me
+            </a>
+            .
+          </T>
         </p>
         <Button type="button" className="mt-8" onClick={onReset}>
-          Send another inquiry
+          <T>Send another inquiry</T>
         </Button>
       </div>
     )
   }
+
+  const gt = useGT()
 
   return (
     <form
@@ -277,12 +254,12 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
           id="contact-form-title"
           className="font-display text-base font-semibold text-neutral-950"
         >
-          Project inquiries
+          <T>Project inquiries</T>
         </h2>
         <div className="isolate mt-6 -space-y-px rounded-2xl bg-white/50">
           <TextInput
             ref={setFieldRef('name')}
-            label="Name"
+            label={gt('Name')}
             name="name"
             autoComplete="name"
             required
@@ -292,7 +269,7 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
           />
           <TextInput
             ref={setFieldRef('email')}
-            label="Email"
+            label={gt('Email')}
             type="email"
             name="email"
             autoComplete="email"
@@ -305,7 +282,7 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
           />
           <TextInput
             ref={setFieldRef('company')}
-            label="Company"
+            label={gt('Company')}
             name="company"
             autoComplete="organization"
             required
@@ -317,13 +294,15 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
           />
           <TextInput
             ref={setFieldRef('phone')}
-            label="Phone"
+            label={gt('Phone')}
             type="tel"
             name="phone"
             autoComplete="tel"
             inputMode="tel"
             required
-            title="10–15 digits; you may use +, spaces, dashes, and parentheses."
+            title={gt(
+              '10–15 digits; you may use +, spaces, dashes, and parentheses.',
+            )}
             value={fields.phone}
             error={fieldErrors?.phone}
             onChange={(e) =>
@@ -332,7 +311,7 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
           />
           <Textarea
             ref={setFieldRef('message')}
-            label="Message"
+            label={gt('Message')}
             name="message"
             autoComplete="off"
             required
@@ -342,67 +321,25 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
               setFields((f) => ({ ...f, message: e.target.value }))
             }
           />
-          <div
-            ref={budgetSectionRef}
-            className={`border px-6 py-8 first:rounded-t-2xl last:rounded-b-2xl ${
-              fieldErrors?.budget
-                ? 'border-red-600'
-                : 'border-neutral-300'
-            }`}
-          >
-            <fieldset
-              className="min-w-0 border-0 p-0"
-              aria-invalid={fieldErrors?.budget ? true : undefined}
-              aria-describedby={
-                fieldErrors?.budget ? 'contact-budget-error' : undefined
-              }
-            >
-              <legend className="text-base/6 text-neutral-500">Budget</legend>
-              <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
-                <RadioInput
-                  label="$25K – $50K"
-                  name="budget"
-                  value="25"
-                  required
-                  checked={fields.budget === '25'}
-                  onChange={() => setFields((f) => ({ ...f, budget: '25' }))}
-                />
-                <RadioInput
-                  label="$50K – $100K"
-                  name="budget"
-                  value="50"
-                  checked={fields.budget === '50'}
-                  onChange={() => setFields((f) => ({ ...f, budget: '50' }))}
-                />
-                <RadioInput
-                  label="$100K – $150K"
-                  name="budget"
-                  value="100"
-                  checked={fields.budget === '100'}
-                  onChange={() => setFields((f) => ({ ...f, budget: '100' }))}
-                />
-                <RadioInput
-                  label="More than $150K"
-                  name="budget"
-                  value="150"
-                  checked={fields.budget === '150'}
-                  onChange={() => setFields((f) => ({ ...f, budget: '150' }))}
-                />
-              </div>
-            </fieldset>
-            {fieldErrors?.budget ? (
-              <p
-                id="contact-budget-error"
-                className="mt-4 text-sm font-medium text-red-700"
-                role="alert"
-              >
-                {fieldErrors.budget}
-              </p>
-            ) : null}
-          </div>
+          <TextInput
+            ref={(el) => {
+              fieldRefs.current.budget = el
+              budgetSectionRef.current = el?.closest('div') ?? null
+            }}
+            label={gt('Budget')}
+            name="budget"
+            autoComplete="off"
+            inputMode="text"
+            required
+            value={fields.budget}
+            error={fieldErrors?.budget}
+            onChange={(e) =>
+              setFields((f) => ({ ...f, budget: e.target.value }))
+            }
+          />
         </div>
         <Button type="submit" className="mt-10" disabled={isPending}>
-          {isPending ? 'Sending…' : 'Let’s work together'}
+          {isPending ? gt('Sending…') : gt('Let’s work together')}
         </Button>
       </fieldset>
 

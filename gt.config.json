@@ -1,0 +1,12 @@
+{
+  "defaultLocale": "en",
+  "locales": ["es", "fr"],
+  "files": {
+    "gt": {
+      "output": "public/_gt/[locale].json"
+    },
+    "mdx": {
+      "include": ["src/app/**/content.[locale].mdx"]
+    }
+  }
+}

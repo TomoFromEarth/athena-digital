@@ -1,3 +1,7 @@
+import { T } from 'gt-next'
+import { getGT } from 'gt-next/server'
+
+import { Blockquote } from '@/components/Blockquote'
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
@@ -15,17 +19,33 @@ export default async function CaseStudyLayout({
   caseStudy: MDXEntry<CaseStudy>
   children: React.ReactNode
 }) {
+  const gt = await getGT()
   let allCaseStudies = await loadCaseStudies()
   let moreCaseStudies = allCaseStudies
-    .filter(({ metadata }) => metadata !== caseStudy)
+    .filter(
+      ({ metadata }) =>
+        !(
+          metadata.client === caseStudy.client &&
+          metadata.date === caseStudy.date
+        ),
+    )
     .slice(0, 2)
+    .map((cs) => ({
+      ...cs,
+      title: gt(cs.title),
+      description: gt(cs.description),
+    }))
 
   return (
     <RootLayout>
       <article className="mt-24 sm:mt-32 lg:mt-40">
         <header>
-          <PageIntro eyebrow="Work spotlight" title={caseStudy.title} centered>
-            <p>{caseStudy.description}</p>
+          <PageIntro
+            eyebrow={<T>Work spotlight</T>}
+            title={gt(caseStudy.title)}
+            centered
+          >
+            <p>{gt(caseStudy.description)}</p>
           </PageIntro>
 
           <FadeIn>
@@ -34,11 +54,15 @@ export default async function CaseStudyLayout({
                 <div className="mx-auto max-w-5xl">
                   <dl className="-mx-6 grid grid-cols-1 text-sm text-neutral-950 sm:mx-0 sm:grid-cols-3">
                     <div className="border-t border-neutral-200 px-6 py-4 first:border-t-0 sm:border-t-0 sm:border-l">
-                      <dt className="font-semibold">Client</dt>
+                      <dt className="font-semibold">
+                        <T>Client</T>
+                      </dt>
                       <dd>{caseStudy.client}</dd>
                     </div>
                     <div className="border-t border-neutral-200 px-6 py-4 first:border-t-0 sm:border-t-0 sm:border-l">
-                      <dt className="font-semibold">Year</dt>
+                      <dt className="font-semibold">
+                        <T>Year</T>
+                      </dt>
                       <dd>
                         <time dateTime={caseStudy.date.split('-')[0]}>
                           {caseStudy.date.split('-')[0]}
@@ -46,8 +70,10 @@ export default async function CaseStudyLayout({
                       </dd>
                     </div>
                     <div className="border-t border-neutral-200 px-6 py-4 first:border-t-0 sm:border-t-0 sm:border-l">
-                      <dt className="font-semibold">Service</dt>
-                      <dd>{caseStudy.service}</dd>
+                      <dt className="font-semibold">
+                        <T>Service</T>
+                      </dt>
+                      <dd>{gt(caseStudy.service)}</dd>
                     </div>
                   </dl>
                 </div>
@@ -77,12 +103,27 @@ export default async function CaseStudyLayout({
             <MDXComponents.wrapper>{children}</MDXComponents.wrapper>
           </FadeIn>
         </Container>
+
+        {caseStudy.testimonial?.content && (
+          <Container className="mt-24 sm:mt-32 lg:mt-40">
+            <FadeIn>
+              <Blockquote
+                author={{
+                  name: caseStudy.testimonial.author.name,
+                  role: gt(caseStudy.testimonial.author.role),
+                }}
+              >
+                {gt(caseStudy.testimonial.content)}
+              </Blockquote>
+            </FadeIn>
+          </Container>
+        )}
       </article>
 
       {moreCaseStudies.length > 0 && (
         <PageLinks
           className="mt-24 sm:mt-32 lg:mt-40"
-          title="More work"
+          title={<T>More work</T>}
           pages={moreCaseStudies}
         />
       )}

@@ -31,7 +31,7 @@ export function GridListItem({
   className,
   invert = false,
 }: {
-  title: string
+  title: React.ReactNode
   children: React.ReactNode
   className?: string
   invert?: boolean
@@ -55,7 +55,8 @@ export function GridListItem({
             )}
           >
             {title}.
-          </strong>{' '}
+          </strong>
+          {' '}
           {children}
         </Border>
       </FadeIn>
