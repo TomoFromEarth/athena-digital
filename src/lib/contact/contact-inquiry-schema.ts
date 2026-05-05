@@ -42,9 +42,11 @@ export const contactInquiryFormSchema = z.object({
     .trim()
     .min(1, msg('Please enter a message.'))
     .max(10_000, msg('Message is too long.')),
-  budget: z.enum(['25', '50', '100', '150'], {
-    error: () => ({ message: msg('Please select a budget range.') }),
-  }),
+  budget: z
+    .string()
+    .trim()
+    .min(1, msg('Please enter your budget.'))
+    .max(200, msg('Budget is too long.')),
 })
 
 export type ContactInquiryFormInput = z.infer<typeof contactInquiryFormSchema>

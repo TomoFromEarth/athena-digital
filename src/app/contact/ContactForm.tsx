@@ -19,15 +19,13 @@ import {
   submitContactInquiry,
 } from '@/app/contact/actions'
 
-type BudgetValue = '25' | '50' | '100' | '150'
-
 type FormFields = {
   name: string
   email: string
   company: string
   phone: string
   message: string
-  budget: BudgetValue | ''
+  budget: string
 }
 
 const emptyFields: FormFields = {
@@ -48,7 +46,7 @@ const FIELD_FOCUS_ORDER: ContactFormFieldKey[] = [
   'budget',
 ]
 
-type TextFieldKey = Exclude<ContactFormFieldKey, 'budget'>
+type TextFieldKey = ContactFormFieldKey
 
 const TextInput = forwardRef<
   HTMLInputElement,
@@ -133,22 +131,6 @@ const Textarea = forwardRef<
   )
 })
 
-function RadioInput({
-  label,
-  ...props
-}: React.ComponentPropsWithoutRef<'input'> & { label: string }) {
-  return (
-    <label className="flex gap-x-3">
-      <input
-        type="radio"
-        {...props}
-        className="h-6 w-6 flex-none appearance-none rounded-full border border-neutral-950/20 outline-hidden checked:border-8 checked:border-neutral-950 focus-visible:ring-1 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:opacity-60"
-      />
-      <span className="text-base/6 text-neutral-950">{label}</span>
-    </label>
-  )
-}
-
 const contactInitialState: ContactActionState = { status: 'idle' }
 
 function ContactFormImpl({ onReset }: { onReset: () => void }) {
@@ -160,9 +142,7 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
   )
 
   const fieldRefs = useRef<
-    Partial<
-      Record<TextFieldKey, HTMLInputElement | HTMLTextAreaElement | null>
-    >
+    Partial<Record<TextFieldKey, HTMLInputElement | HTMLTextAreaElement | null>>
   >({})
   const budgetSectionRef = useRef<HTMLDivElement>(null)
   const feedbackRef = useRef<HTMLDivElement>(null)
@@ -185,14 +165,6 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
       for (const key of FIELD_FOCUS_ORDER) {
         if (!fieldErrors[key]) {
           continue
-        }
-        if (key === 'budget') {
-          const section = budgetSectionRef.current
-          section?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-          section
-            ?.querySelector<HTMLInputElement>('input[name="budget"]')
-            ?.focus()
-          return
         }
         const el = fieldRefs.current[key]
         el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -235,8 +207,8 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
         </p>
         <p className="mt-3 text-base leading-relaxed text-neutral-600">
           <T>
-            Athena Digital will follow up by email. If you need anything else
-            in the meantime, you can reach us at{' '}
+            Athena Digital will follow up by email. If you need anything else in
+            the meantime, you can reach us at{' '}
             <a
               href="mailto:julia@athenadigital.me"
               className="font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-2 hover:decoration-neutral-950"
@@ -349,66 +321,22 @@ function ContactFormImpl({ onReset }: { onReset: () => void }) {
               setFields((f) => ({ ...f, message: e.target.value }))
             }
           />
-          <div
-            ref={budgetSectionRef}
-            className={`border px-6 py-8 first:rounded-t-2xl last:rounded-b-2xl ${
-              fieldErrors?.budget
-                ? 'border-red-600'
-                : 'border-neutral-300'
-            }`}
-          >
-            <fieldset
-              className="min-w-0 border-0 p-0"
-              aria-invalid={fieldErrors?.budget ? true : undefined}
-              aria-describedby={
-                fieldErrors?.budget ? 'contact-budget-error' : undefined
-              }
-            >
-              <legend className="text-base/6 text-neutral-500">
-                <T>Budget</T>
-              </legend>
-              <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
-                <RadioInput
-                  label="$25K – $50K"
-                  name="budget"
-                  value="25"
-                  required
-                  checked={fields.budget === '25'}
-                  onChange={() => setFields((f) => ({ ...f, budget: '25' }))}
-                />
-                <RadioInput
-                  label="$50K – $100K"
-                  name="budget"
-                  value="50"
-                  checked={fields.budget === '50'}
-                  onChange={() => setFields((f) => ({ ...f, budget: '50' }))}
-                />
-                <RadioInput
-                  label="$100K – $150K"
-                  name="budget"
-                  value="100"
-                  checked={fields.budget === '100'}
-                  onChange={() => setFields((f) => ({ ...f, budget: '100' }))}
-                />
-                <RadioInput
-                  label={gt('More than $150K')}
-                  name="budget"
-                  value="150"
-                  checked={fields.budget === '150'}
-                  onChange={() => setFields((f) => ({ ...f, budget: '150' }))}
-                />
-              </div>
-            </fieldset>
-            {fieldErrors?.budget ? (
-              <p
-                id="contact-budget-error"
-                className="mt-4 text-sm font-medium text-red-700"
-                role="alert"
-              >
-                {fieldErrors.budget}
-              </p>
-            ) : null}
-          </div>
+          <TextInput
+            ref={(el) => {
+              fieldRefs.current.budget = el
+              budgetSectionRef.current = el?.closest('div') ?? null
+            }}
+            label={gt('Budget')}
+            name="budget"
+            autoComplete="off"
+            inputMode="text"
+            required
+            value={fields.budget}
+            error={fieldErrors?.budget}
+            onChange={(e) =>
+              setFields((f) => ({ ...f, budget: e.target.value }))
+            }
+          />
         </div>
         <Button type="submit" className="mt-10" disabled={isPending}>
           {isPending ? gt('Sending…') : gt('Let’s work together')}
