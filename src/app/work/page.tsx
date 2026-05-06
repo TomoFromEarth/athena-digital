@@ -10,7 +10,7 @@ import { Border } from '@/components/Border'
 import { Button } from '@/components/Button'
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
-import { FadeIn, FadeInStagger } from '@/components/FadeIn'
+import { FadeIn } from '@/components/FadeIn'
 import { PageIntro } from '@/components/PageIntro'
 import { RootLayout } from '@/components/RootLayout'
 import { formatDate } from '@/lib/formatDate'
@@ -122,9 +122,7 @@ export default async function Work() {
     <RootLayout>
       <PageIntro
         eyebrow={<T>Our work</T>}
-        title={
-          <T>Real collaborations, told without invented case studies.</T>
-        }
+        title={<T>Real collaborations, told without invented case studies.</T>}
       >
         <p>
           <T>
@@ -133,9 +131,9 @@ export default async function Work() {
             <strong className="font-semibold text-neutral-950">
               spotlights we can stand behind
             </strong>
-            —honest snapshots of how the studio partners with creators and
-            teams on content, posting, and community. More will appear as new
-            work is ready to share.
+            —honest snapshots of how the studio partners with creators and teams
+            on content, posting, and community. More will appear as new work is
+            ready to share.
           </T>
         </p>
       </PageIntro>

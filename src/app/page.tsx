@@ -31,30 +31,14 @@ function AudienceStrip() {
       <Container>
         <FadeIn className="max-w-2xl">
           <h2 className="font-display text-3xl font-medium tracking-tight text-balance text-white sm:text-4xl">
-            <T>
-              A remote studio for people who live in culture, not just ads.
-            </T>
+            <T>A remote studio for people who live in culture, not just ads.</T>
           </h2>
           <p className="mt-6 text-lg text-neutral-400">
             <T>
               Athena Digital partners with creators, artists, lean teams, and
               brands that want content and community handled with care—without
-              pretending we are a 200-person network. Proof shows up in the
-              work you can see in the wild, not in a wall of borrowed logos.
-            </T>
-          </p>
-          <p className="mt-6 text-lg text-neutral-400">
-            <T>
-              <Link
-                href="https://instagram.com/athenadigital"
-                className="font-semibold text-white underline decoration-neutral-600 underline-offset-4 transition hover:decoration-white"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Follow along on Instagram
-              </Link>{' '}
-              for a living snapshot of what we are building. More case-style
-              writeups will land on the site as they are ready.
+              pretending we are a 200-person network. Proof shows up in the work
+              you can see in the wild, not in a wall of borrowed logos.
             </T>
           </p>
         </FadeIn>
@@ -180,14 +164,14 @@ function Services() {
             </ListItem>
             <ListItem title={<T>Community management</T>}>
               <T>
-                Human replies, light moderation, and the small touches that
-                keep people feeling seen in comments and DMs.
+                Human replies, light moderation, and the small touches that keep
+                people feeling seen in comments and DMs.
               </T>
             </ListItem>
             <ListItem title={<T>Trend research &amp; cultural listening</T>}>
               <T>
-                Spotting what is rising, what is tired, and what fits your
-                brand without chasing every noise-making trend.
+                Spotting what is rising, what is tired, and what fits your brand
+                without chasing every noise-making trend.
               </T>
             </ListItem>
           </List>
@@ -208,8 +192,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Home() {
   const gt = await getGT()
-  const hasClientQuote =
-    decodeMsg(homepageTestimonial.quote).trim().length > 0
+  const hasClientQuote = decodeMsg(homepageTestimonial.quote).trim().length > 0
   const authorTitle = gt(homepageTestimonial.authorTitle)
 
   return (

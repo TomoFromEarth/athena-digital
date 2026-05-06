@@ -48,13 +48,6 @@ function ContactDetails() {
           </div>
         </dl>
       </Border>
-
-      <Border className="mt-16 pt-16">
-        <h2 className="font-display text-base font-semibold text-neutral-950">
-          <T>Follow Athena Digital</T>
-        </h2>
-        <SocialMedia className="mt-6" />
-      </Border>
     </FadeIn>
   )
 }
@@ -78,8 +71,8 @@ export default function Contact() {
       >
         <p>
           <T>
-            Share what you need help with and Athena Digital will follow up
-            with the best next step.
+            Share what you need help with and Athena Digital will follow up with
+            the best next step.
           </T>
         </p>
       </PageIntro>

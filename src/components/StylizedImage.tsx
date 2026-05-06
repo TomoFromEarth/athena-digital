@@ -81,12 +81,31 @@ const collageDefaultImageClass = 'block size-full object-cover'
 
 type CollageCellImageClasses = readonly [string, string, string, string]
 
+function getCollageImageHref(src: StaticImageData | string) {
+  return typeof src === 'string' ? src : src.src
+}
+
+function getCollageImagePreserveAspectRatio(className: string) {
+  let x = className.includes('object-left')
+    ? 'xMin'
+    : className.includes('object-right')
+      ? 'xMax'
+      : 'xMid'
+  let y = className.includes('object-top')
+    ? 'YMin'
+    : className.includes('object-bottom')
+      ? 'YMax'
+      : 'YMid'
+
+  return `${x}${y} slice`
+}
+
 /** Same SVG mask as {@link StylizedImage}, with four images in a flush 2×2 grid (no gaps or radii). */
 export function StylizedCollage({
   shape = 0,
   className,
   images,
-  sizes,
+  sizes: _sizes,
   cellImageClassName,
 }: {
   shape?: 0 | 1 | 2
@@ -98,40 +117,33 @@ export function StylizedCollage({
 }) {
   let id = useId()
   let { width, height, path } = stylizedShapes[shape]
+  let cellWidth = width / 2
+  let cellHeight = height / 2
 
   return (
     <div className={clsx(className, 'relative flex aspect-719/680 w-full')}>
       <svg viewBox={`0 0 ${width} ${height}`} fill="none" className="h-full">
         <g clipPath={`url(#${id}-clip)`} className="group">
           <g className="origin-center scale-100 transition duration-500 motion-safe:group-hover:scale-105">
-            <foreignObject width={width} height={height}>
-              <div
-                className="grid size-full grid-cols-2 grid-rows-2 gap-0 overflow-hidden leading-none"
-                style={{
-                  width,
-                  height,
-                  margin: 0,
-                  padding: 0,
-                }}
-              >
-                {images.map((src, i) => (
-                  <div
-                    key={i}
-                    className="relative min-h-0 min-w-0 overflow-hidden bg-neutral-100"
-                  >
-                    <Image
-                      src={src}
-                      alt=""
-                      fill
-                      sizes={sizes}
-                      className={
-                        cellImageClassName?.[i] ?? collageDefaultImageClass
-                      }
-                    />
-                  </div>
-                ))}
-              </div>
-            </foreignObject>
+            <rect width={width} height={height} className="fill-neutral-100" />
+            {images.map((src, i) => {
+              let imageClassName =
+                cellImageClassName?.[i] ?? collageDefaultImageClass
+
+              return (
+                <image
+                  key={i}
+                  href={getCollageImageHref(src)}
+                  x={(i % 2) * cellWidth}
+                  y={i < 2 ? 0 : cellHeight}
+                  width={cellWidth}
+                  height={cellHeight}
+                  preserveAspectRatio={getCollageImagePreserveAspectRatio(
+                    imageClassName,
+                  )}
+                />
+              )
+            })}
           </g>
           <use
             href={`#${id}-shape`}

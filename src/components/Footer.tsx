@@ -7,7 +7,6 @@ import { T, useGT, Var } from 'gt-next/client'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
 import { Logo } from '@/components/Logo'
-import { socialMediaProfiles } from '@/components/SocialMedia'
 
 const navigation = [
   {
@@ -27,13 +26,6 @@ const navigation = [
       { title: msg('Community Management'), href: '/process' },
       { title: msg('Trend Research'), href: '/process' },
     ],
-  },
-  {
-    title: msg('Follow Athena Digital'),
-    links: socialMediaProfiles.map((profile) => ({
-      title: profile.title,
-      href: profile.href,
-    })),
   },
 ]
 
@@ -131,8 +123,8 @@ export function Footer() {
           </Link>
           <p className="text-sm text-neutral-700">
             <T>
-              © Athena Digital <Var>{new Date().getFullYear()}</Var>. All rights
-              reserved.
+              © Athena Digital <Var>{new Date().getFullYear()}</Var>. All
+              rights reserved.
             </T>
           </p>
         </div>
